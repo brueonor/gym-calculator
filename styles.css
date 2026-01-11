@@ -275,7 +275,7 @@ h2 {
 .plate-checkbox {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     padding: 8px 12px;
     background: #0f0f23;
     border: 2px solid #333;
@@ -292,35 +292,31 @@ h2 {
     display: none;
 }
 
-.plate-checkbox input:checked + span {
-    color: #00d4ff;
+.plate-checkbox:has(input:checked) {
+    border-color: #00d4ff;
+    background: rgba(0, 212, 255, 0.1);
 }
 
-.plate-checkbox input:checked ~ span::before {
-    background: #00d4ff;
+.plate-checkbox:has(input:not(:checked)) {
+    opacity: 0.5;
 }
 
 .plate-checkbox span {
     font-weight: 600;
-    color: #666;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: #aaa;
 }
 
-.plate-checkbox span::before {
-    content: '';
+.plate-checkbox .plate-color-indicator {
     width: 16px;
     height: 16px;
-    border: 2px solid #444;
     border-radius: 4px;
-    display: inline-block;
-    transition: all 0.2s ease;
+    border: 2px solid rgba(255,255,255,0.2);
+    flex-shrink: 0;
+    margin-right: 4px;
 }
 
-.plate-checkbox input:checked + span::before {
-    background: #00d4ff;
-    border-color: #00d4ff;
+.plate-checkbox:has(input:checked) span {
+    color: #fff;
 }
 
 .calculate-btn {

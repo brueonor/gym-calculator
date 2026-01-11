@@ -209,6 +209,28 @@ const PLATES = {
     kg: [25, 20, 15, 10, 5, 2.5, 1.25]
 };
 
+const PLATE_COLORS = {
+    lbs: {
+        55: '#dc2626',    // red
+        45: '#2563eb',    // blue
+        35: '#eab308',    // yellow
+        25: '#16a34a',    // green
+        15: '#a855f7',    // purple
+        10: '#e5e5e5',    // white
+        5: '#3b82f6',     // blue
+        2.5: '#22c55e'    // green
+    },
+    kg: {
+        25: '#dc2626',    // red
+        20: '#2563eb',    // blue
+        15: '#eab308',    // yellow
+        10: '#16a34a',    // green
+        5: '#e5e5e5',     // white
+        2.5: '#3b82f6',   // blue
+        1.25: '#22c55e'   // green
+    }
+};
+
 function getBarOptions(unit) {
     if (unit === 'lbs') {
         return [
@@ -234,11 +256,14 @@ const unitState = {
 // ========== Plate Calculator ==========
 function renderCalcPlateCheckboxes() {
     const container = document.getElementById('calc-plate-checkboxes');
-    const plates = PLATES[unitState.calculator];
+    const unit = unitState.calculator;
+    const plates = PLATES[unit];
+    const colors = PLATE_COLORS[unit];
 
     container.innerHTML = plates.map(p => `
         <label class="plate-checkbox">
             <input type="checkbox" value="${p}" checked>
+            <span class="plate-color-indicator" style="background: ${colors[p]};"></span>
             <span>${p}</span>
         </label>
     `).join('');
