@@ -438,11 +438,42 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
         document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
         document.getElementById(toolId).classList.add('active');
 
+        // Reset all inputs and results
+        resetAllTools();
+
         if (sidebar.classList.contains('open')) {
             toggleMenu();
         }
     });
 });
+
+function resetAllTools() {
+    // Plate Calculator
+    document.getElementById('target-weight').value = '';
+    document.getElementById('result').classList.add('hidden');
+    document.getElementById('error').classList.add('hidden');
+
+    // Plate Builder
+    builderPlates = [];
+    updateBuilderDisplay();
+
+    // 1RM Estimator
+    document.getElementById('rm-weight').value = '';
+    document.getElementById('rm-reps').value = '';
+    document.getElementById('rm-result').classList.add('hidden');
+    document.getElementById('rm-error').classList.add('hidden');
+    document.getElementById('rm-percentages').classList.add('hidden');
+    document.getElementById('toggle-rm-percentages').textContent = t('rmViewPercentages');
+
+    // Percentage Chart
+    document.getElementById('chart-1rm').value = '';
+    document.getElementById('chart-result').classList.add('hidden');
+    document.getElementById('chart-error').classList.add('hidden');
+
+    // Unit Converter
+    document.getElementById('convert-lbs').value = '';
+    document.getElementById('convert-kg').value = '';
+}
 
 // ========== Plate Builder ==========
 let builderPlates = [];
