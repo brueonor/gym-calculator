@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Gym Calculator</h1>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Tools</h2>
+        </div>
+        <ul class="nav-list">
+            <li><button class="nav-btn active" data-tool="plate-calculator">Plate Calculator</button></li>
+            <li><button class="nav-btn" data-tool="plate-builder">Plate Builder</button></li>
+            <li><button class="nav-btn" data-tool="one-rm-calculator">1RM Estimator</button></li>
+            <li><button class="nav-btn" data-tool="percentage-chart">Percentage Chart</button></li>
+            <li><button class="nav-btn" data-tool="unit-converter">Unit Converter</button></li>
+        </ul>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+
+        <section id="plate-calculator" class="tool-section active">
+            <h2>Plate Calculator</h2>
+
+            <div class="input-group">
+                <label for="target-weight">Target Weight (lbs)</label>
+                <input type="number" id="target-weight" min="0" step="2.5" placeholder="Enter weight">
+            </div>
+
+            <div class="input-group">
+                <label for="bar-type">Bar Type</label>
+                <select id="bar-type">
+                    <option value="45">Olympic Bar (45 lbs)</option>
+                    <option value="35">Women's Bar (35 lbs)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Available Plates (lbs)</label>
+                <div class="plate-checkboxes">
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="45" checked>
+                        <span>45</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="35" checked>
+                        <span>35</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="25" checked>
+                        <span>25</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="15" checked>
+                        <span>15</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="10" checked>
+                        <span>10</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="5" checked>
+                        <span>5</span>
+                    </label>
+                    <label class="plate-checkbox">
+                        <input type="checkbox" value="2.5" checked>
+                        <span>2.5</span>
+                    </label>
+                </div>
+            </div>
+
+            <button id="calculate-btn" class="calculate-btn">Calculate Plates</button>
+
+            <div id="result" class="result hidden">
+                <h3>Plates Per Side</h3>
+                <div id="plates-list"></div>
+                <div id="barbell-visual" class="barbell-visual"></div>
+            </div>
+
+            <div id="error" class="error hidden"></div>
+        </section>
+
+        <section id="plate-builder" class="tool-section">
+            <h2>Plate Builder</h2>
+
+            <div class="input-group">
+                <label for="builder-bar-type">Bar Type</label>
+                <select id="builder-bar-type">
+                    <option value="45">Olympic Bar (45 lbs)</option>
+                    <option value="35">Women's Bar (35 lbs)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Add Plates (per side)</label>
+                <div class="plate-buttons">
+                    <button class="plate-btn" data-weight="45">+45</button>
+                    <button class="plate-btn" data-weight="35">+35</button>
+                    <button class="plate-btn" data-weight="25">+25</button>
+                    <button class="plate-btn" data-weight="15">+15</button>
+                    <button class="plate-btn" data-weight="10">+10</button>
+                    <button class="plate-btn" data-weight="5">+5</button>
+                    <button class="plate-btn" data-weight="2.5">+2.5</button>
+                </div>
+            </div>
+
+            <div class="builder-result">
+                <div class="total-weight">
+                    <span class="label">Total Weight</span>
+                    <span class="weight-value" id="builder-total">45 lbs</span>
+                </div>
+                <div id="builder-barbell-visual" class="barbell-visual"></div>
+                <div id="builder-plates-list" class="plates-list-inline"></div>
+                <button id="clear-plates-btn" class="clear-btn">Clear All</button>
+            </div>
+        </section>
+
+        <section id="one-rm-calculator" class="tool-section">
+            <h2>1RM Estimator</h2>
+
+            <div class="input-group">
+                <label for="rm-weight">Weight Lifted (lbs)</label>
+                <input type="number" id="rm-weight" min="0" step="2.5" placeholder="Enter weight">
+            </div>
+
+            <div class="input-group">
+                <label for="rm-reps">Reps Performed</label>
+                <input type="number" id="rm-reps" min="1" max="30" step="1" placeholder="Enter reps">
+            </div>
+
+            <div class="input-group">
+                <label for="rm-formula">Formula</label>
+                <select id="rm-formula">
+                    <option value="epley">Epley</option>
+                    <option value="brzycki">Brzycki</option>
+                    <option value="oconnor">O'Connor</option>
+                    <option value="mayhew">Mayhew/Wathen</option>
+                </select>
+            </div>
+
+            <button id="calculate-rm-btn" class="calculate-btn">Estimate 1RM</button>
+
+            <div id="rm-result" class="result hidden">
+                <div class="rm-display">
+                    <span class="rm-label">Estimated 1RM</span>
+                    <span class="rm-value" id="rm-value">0 lbs</span>
+                </div>
+                <p class="rm-note" id="rm-note"></p>
+                <button id="toggle-rm-percentages" class="secondary-btn">View Percentages</button>
+                <div id="rm-percentages" class="percentage-table hidden"></div>
+            </div>
+
+            <div id="rm-error" class="error hidden"></div>
+        </section>
+
+        <section id="percentage-chart" class="tool-section">
+            <h2>Percentage Chart</h2>
+
+            <div class="input-group">
+                <label for="chart-1rm">Your 1RM (lbs)</label>
+                <input type="number" id="chart-1rm" min="0" step="2.5" placeholder="Enter your 1RM">
+            </div>
+
+            <button id="generate-chart-btn" class="calculate-btn">Generate Chart</button>
+
+            <div id="chart-result" class="result hidden">
+                <div id="chart-percentages" class="percentage-table"></div>
+            </div>
+
+            <div id="chart-error" class="error hidden"></div>
+        </section>
+
+        <section id="unit-converter" class="tool-section">
+            <h2>Unit Converter</h2>
+
+            <div class="converter-container">
+                <div class="input-group">
+                    <label for="convert-lbs">Pounds (lbs)</label>
+                    <input type="number" id="convert-lbs" min="0" step="0.1" placeholder="Enter lbs">
+                </div>
+
+                <div class="converter-arrow">⇄</div>
+
+                <div class="input-group">
+                    <label for="convert-kg">Kilograms (kg)</label>
+                    <input type="number" id="convert-kg" min="0" step="0.1" placeholder="Enter kg">
+                </div>
+            </div>
+
+            <p class="converter-note">Type in either field to convert</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

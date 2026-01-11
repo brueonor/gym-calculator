@@ -1,0 +1,40 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+A static gym calculator web app hosted on GitHub Pages. Pure HTML/CSS/JavaScript with no build tools or dependencies.
+
+## Development
+
+Open `index.html` directly in a browser to test. No build step or server required.
+
+## Architecture
+
+- **index.html**: Single-page app with navigation tabs for different tools
+- **styles.css**: Dark theme with CSS variables, mobile-responsive
+- **script.js**: Tool logic with modular functions per calculator
+
+### Adding New Tools
+
+1. Add a nav button in `.nav-list` inside the sidebar with `data-tool="tool-id"`
+2. Add a `<section id="tool-id" class="tool-section">` inside `.container`
+3. Add tool logic in `script.js` - navigation and menu close are already wired up
+
+### Current Tools
+
+**Plate Calculator**: Input target weight, calculates plates needed per side using greedy algorithm. Users can select which plates are available at their gym.
+
+**Plate Builder**: Click plate buttons to add weight to the bar. Shows running total and visual representation. Click plate tags to remove plates.
+
+**1RM Estimator**: Estimates one-rep max from weight and reps. Supports Epley (default), Brzycki, O'Connor, and Mayhew/Wathen formulas. Includes toggle to view percentage breakdown.
+
+**Percentage Chart**: Shows weights at different percentages of 1RM (100% down to 30% in 5% increments).
+
+**Unit Converter**: Real-time conversion between lbs and kg.
+
+## Constraints
+
+- No npm, no bundlers, no frameworks - must work as static files on GitHub Pages
+- All weights in lbs (no kg conversion)
