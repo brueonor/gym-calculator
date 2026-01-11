@@ -429,18 +429,24 @@ h2 {
     text-orientation: mixed;
 }
 
-/* lbs plates */
-.plate-45 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }
-.plate-35 { background: linear-gradient(to right, #eab308, #ca8a04); height: 75px; min-width: 12px; }
-.plate-25 { background: linear-gradient(to right, #16a34a, #15803d); height: 70px; min-width: 11px; }
-.plate-15 { background: linear-gradient(to right, #dc2626, #b91c1c); height: 60px; min-width: 10px; }
-.plate-10 { background: linear-gradient(to right, #9333ea, #7e22ce); height: 55px; min-width: 9px; }
-.plate-5 { background: linear-gradient(to right, #64748b, #475569); height: 45px; min-width: 8px; }
-.plate-2\.5 { background: linear-gradient(to right, #78716c, #57534e); height: 35px; min-width: 6px; }
+/* lbs plate colors */
+.plate-lbs-55 { background: linear-gradient(to right, #dc2626, #b91c1c); height: 85px; min-width: 15px; }  /* red */
+.plate-lbs-45 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }  /* blue */
+.plate-lbs-35 { background: linear-gradient(to right, #eab308, #ca8a04); height: 75px; min-width: 12px; }  /* yellow */
+.plate-lbs-25 { background: linear-gradient(to right, #16a34a, #15803d); height: 70px; min-width: 11px; }  /* green */
+.plate-lbs-15 { background: linear-gradient(to right, #a855f7, #9333ea); height: 60px; min-width: 10px; }  /* purple */
+.plate-lbs-10 { background: linear-gradient(to right, #f5f5f5, #e5e5e5); height: 55px; min-width: 9px; color: #333; }  /* white */
+.plate-lbs-5 { background: linear-gradient(to right, #3b82f6, #2563eb); height: 45px; min-width: 8px; }   /* blue */
+.plate-lbs-2\.5 { background: linear-gradient(to right, #22c55e, #16a34a); height: 40px; min-width: 7px; } /* green */
 
-/* kg plates */
-.plate-20 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }
-.plate-1\.25 { background: linear-gradient(to right, #a3a3a3, #737373); height: 30px; min-width: 5px; }
+/* kg plate colors */
+.plate-kg-25 { background: linear-gradient(to right, #dc2626, #b91c1c); height: 85px; min-width: 15px; }    /* red */
+.plate-kg-20 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }    /* blue */
+.plate-kg-15 { background: linear-gradient(to right, #eab308, #ca8a04); height: 75px; min-width: 12px; }    /* yellow */
+.plate-kg-10 { background: linear-gradient(to right, #16a34a, #15803d); height: 70px; min-width: 11px; }    /* green */
+.plate-kg-5 { background: linear-gradient(to right, #f5f5f5, #e5e5e5); height: 55px; min-width: 9px; color: #333; }  /* white */
+.plate-kg-2\.5 { background: linear-gradient(to right, #3b82f6, #2563eb); height: 45px; min-width: 8px; }   /* blue */
+.plate-kg-1\.25 { background: linear-gradient(to right, #22c55e, #16a34a); height: 40px; min-width: 7px; }  /* green */
 
 .error {
     margin-top: 20px;

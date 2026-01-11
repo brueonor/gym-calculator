@@ -37,8 +37,10 @@ Open `index.html` directly in a browser to test. No build step or server require
 ## Unit Support
 
 All tools (except Unit Converter) have a lbs/kg toggle. Plate tools use standard plate sets:
-- **lbs**: 45, 35, 25, 15, 10, 5, 2.5
+- **lbs**: 55, 45, 35, 25, 15, 10, 5, 2.5
 - **kg**: 25, 20, 15, 10, 5, 2.5, 1.25
+
+Plate colors (competition standard): 55/25kg=red, 45/20kg=blue, 35/15kg=yellow, 25/10kg=green, 10/5kg=white, 5/2.5kg=blue, 2.5/1.25kg=green
 
 Bar weights: 45/35 lbs or 20/15 kg (Olympic/Women's)
 

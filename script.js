@@ -205,7 +205,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
 
 // ========== Unit Configuration ==========
 const PLATES = {
-    lbs: [45, 35, 25, 15, 10, 5, 2.5],
+    lbs: [55, 45, 35, 25, 15, 10, 5, 2.5],
     kg: [25, 20, 15, 10, 5, 2.5, 1.25]
 };
 
@@ -318,7 +318,7 @@ function renderPlatesList(plates, unit) {
     `).join('');
 }
 
-function renderBarbellVisual(plates, containerId) {
+function renderBarbellVisual(plates, containerId, unit) {
     const container = document.getElementById(containerId);
 
     if (!plates || plates.length === 0) {
@@ -331,11 +331,11 @@ function renderBarbellVisual(plates, containerId) {
     }
 
     const leftPlates = [...plates].reverse().flatMap(p =>
-        Array(p.count).fill(`<div class="plate plate-${p.weight}">${p.weight}</div>`)
+        Array(p.count).fill(`<div class="plate plate-${unit}-${p.weight}">${p.weight}</div>`)
     ).join('');
 
     const rightPlates = plates.flatMap(p =>
-        Array(p.count).fill(`<div class="plate plate-${p.weight}">${p.weight}</div>`)
+        Array(p.count).fill(`<div class="plate plate-${unit}-${p.weight}">${p.weight}</div>`)
     ).join('');
 
     container.innerHTML = `
@@ -374,7 +374,7 @@ function handleCalculate() {
     }
 
     renderPlatesList(result.plates, unit);
-    renderBarbellVisual(result.plates, 'barbell-visual');
+    renderBarbellVisual(result.plates, 'barbell-visual', unit);
     resultDiv.classList.remove('hidden');
 }
 
@@ -533,7 +533,7 @@ function updateBuilderDisplay() {
         });
     }
 
-    renderBarbellVisual(grouped, 'builder-barbell-visual');
+    renderBarbellVisual(grouped, 'builder-barbell-visual', unit);
 }
 
 // Builder unit toggle
