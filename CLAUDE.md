@@ -42,6 +42,16 @@ All tools (except Unit Converter) have a lbs/kg toggle. Plate tools use standard
 
 Bar weights: 45/35 lbs or 20/15 kg (Olympic/Women's)
 
+## Internationalization (i18n)
+
+Supports English and French. Language toggle in header. Default language detected from browser (`navigator.language`).
+
+- Translations in `TRANSLATIONS` object at top of script.js
+- Use `data-i18n="key"` attribute for text content
+- Use `data-i18n-placeholder="key"` for input placeholders
+- Call `t('key')` in JavaScript for translated strings
+- Dynamic elements (bar selects, error messages) use `t()` function
+
 ## Constraints
 
 - No npm, no bundlers, no frameworks - must work as static files on GitHub Pages

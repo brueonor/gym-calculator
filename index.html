@@ -8,24 +8,30 @@
 </head>
 <body>
     <header class="header">
-        <h1>Gym Calculator</h1>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <h1 data-i18n="appTitle">Gym Calculator</h1>
+        <div class="header-controls">
+            <div class="lang-toggle">
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2>Tools</h2>
+            <h2 data-i18n="navTools">Tools</h2>
         </div>
         <ul class="nav-list">
-            <li><button class="nav-btn active" data-tool="plate-calculator">Plate Calculator</button></li>
-            <li><button class="nav-btn" data-tool="plate-builder">Plate Builder</button></li>
-            <li><button class="nav-btn" data-tool="one-rm-calculator">1RM Estimator</button></li>
-            <li><button class="nav-btn" data-tool="percentage-chart">Percentage Chart</button></li>
-            <li><button class="nav-btn" data-tool="unit-converter">Unit Converter</button></li>
+            <li><button class="nav-btn active" data-tool="plate-calculator" data-i18n="navPlateCalc">Plate Calculator</button></li>
+            <li><button class="nav-btn" data-tool="plate-builder" data-i18n="navPlateBuilder">Plate Builder</button></li>
+            <li><button class="nav-btn" data-tool="one-rm-calculator" data-i18n="nav1RM">1RM Estimator</button></li>
+            <li><button class="nav-btn" data-tool="percentage-chart" data-i18n="navPercentage">Percentage Chart</button></li>
+            <li><button class="nav-btn" data-tool="unit-converter" data-i18n="navConverter">Unit Converter</button></li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
@@ -33,7 +39,7 @@
     <div class="container">
 
         <section id="plate-calculator" class="tool-section active">
-            <h2>Plate Calculator</h2>
+            <h2 data-i18n="calcTitle">Plate Calculator</h2>
 
             <div class="unit-toggle">
                 <button class="unit-btn active" data-unit="lbs">lbs</button>
@@ -41,27 +47,24 @@
             </div>
 
             <div class="input-group">
-                <label for="target-weight">Target Weight (<span class="calc-unit">lbs</span>)</label>
-                <input type="number" id="target-weight" min="0" step="2.5" placeholder="Enter weight">
+                <label for="target-weight"><span data-i18n="calcTargetWeight">Target Weight</span> (<span class="calc-unit">lbs</span>)</label>
+                <input type="number" id="target-weight" min="0" step="2.5" data-i18n-placeholder="placeholderWeight">
             </div>
 
             <div class="input-group">
-                <label for="bar-type">Bar Type</label>
-                <select id="bar-type">
-                    <option value="45">Olympic Bar (45 lbs)</option>
-                    <option value="35">Women's Bar (35 lbs)</option>
-                </select>
+                <label for="bar-type" data-i18n="labelBarType">Bar Type</label>
+                <select id="bar-type"></select>
             </div>
 
             <div class="input-group">
-                <label>Available Plates (<span class="calc-unit">lbs</span>)</label>
+                <label><span data-i18n="calcAvailablePlates">Available Plates</span> (<span class="calc-unit">lbs</span>)</label>
                 <div class="plate-checkboxes" id="calc-plate-checkboxes"></div>
             </div>
 
-            <button id="calculate-btn" class="calculate-btn">Calculate Plates</button>
+            <button id="calculate-btn" class="calculate-btn" data-i18n="calcButton">Calculate Plates</button>
 
             <div id="result" class="result hidden">
-                <h3>Plates Per Side</h3>
+                <h3 data-i18n="calcResultTitle">Plates Per Side</h3>
                 <div id="plates-list"></div>
                 <div id="barbell-visual" class="barbell-visual"></div>
             </div>
@@ -70,7 +73,7 @@
         </section>
 
         <section id="plate-builder" class="tool-section">
-            <h2>Plate Builder</h2>
+            <h2 data-i18n="builderTitle">Plate Builder</h2>
 
             <div class="unit-toggle" id="builder-unit-toggle">
                 <button class="unit-btn active" data-unit="lbs">lbs</button>
@@ -78,31 +81,28 @@
             </div>
 
             <div class="input-group">
-                <label for="builder-bar-type">Bar Type</label>
-                <select id="builder-bar-type">
-                    <option value="45">Olympic Bar (45 lbs)</option>
-                    <option value="35">Women's Bar (35 lbs)</option>
-                </select>
+                <label for="builder-bar-type" data-i18n="labelBarType">Bar Type</label>
+                <select id="builder-bar-type"></select>
             </div>
 
             <div class="input-group">
-                <label>Add Plates (per side)</label>
+                <label data-i18n="builderAddPlates">Add Plates (per side)</label>
                 <div class="plate-buttons" id="builder-plate-buttons"></div>
             </div>
 
             <div class="builder-result">
                 <div class="total-weight">
-                    <span class="label">Total Weight</span>
+                    <span class="label" data-i18n="builderTotalWeight">Total Weight</span>
                     <span class="weight-value" id="builder-total">45 lbs</span>
                 </div>
                 <div id="builder-barbell-visual" class="barbell-visual"></div>
                 <div id="builder-plates-list" class="plates-list-inline"></div>
-                <button id="clear-plates-btn" class="clear-btn">Clear All</button>
+                <button id="clear-plates-btn" class="clear-btn" data-i18n="builderClear">Clear All</button>
             </div>
         </section>
 
         <section id="one-rm-calculator" class="tool-section">
-            <h2>1RM Estimator</h2>
+            <h2 data-i18n="rmTitle">1RM Estimator</h2>
 
             <div class="unit-toggle" id="rm-unit-toggle">
                 <button class="unit-btn active" data-unit="lbs">lbs</button>
@@ -110,17 +110,17 @@
             </div>
 
             <div class="input-group">
-                <label for="rm-weight">Weight Lifted (<span class="rm-unit-label">lbs</span>)</label>
-                <input type="number" id="rm-weight" min="0" step="2.5" placeholder="Enter weight">
+                <label for="rm-weight"><span data-i18n="rmWeightLifted">Weight Lifted</span> (<span class="rm-unit-label">lbs</span>)</label>
+                <input type="number" id="rm-weight" min="0" step="2.5" data-i18n-placeholder="placeholderWeight">
             </div>
 
             <div class="input-group">
-                <label for="rm-reps">Reps Performed</label>
-                <input type="number" id="rm-reps" min="1" max="30" step="1" placeholder="Enter reps">
+                <label for="rm-reps" data-i18n="rmReps">Reps Performed</label>
+                <input type="number" id="rm-reps" min="1" max="30" step="1" data-i18n-placeholder="placeholderReps">
             </div>
 
             <div class="input-group">
-                <label for="rm-formula">Formula</label>
+                <label for="rm-formula" data-i18n="rmFormula">Formula</label>
                 <select id="rm-formula">
                     <option value="epley">Epley</option>
                     <option value="brzycki">Brzycki</option>
@@ -129,15 +129,15 @@
                 </select>
             </div>
 
-            <button id="calculate-rm-btn" class="calculate-btn">Estimate 1RM</button>
+            <button id="calculate-rm-btn" class="calculate-btn" data-i18n="rmButton">Estimate 1RM</button>
 
             <div id="rm-result" class="result hidden">
                 <div class="rm-display">
-                    <span class="rm-label">Estimated 1RM</span>
+                    <span class="rm-label" data-i18n="rmEstimated">Estimated 1RM</span>
                     <span class="rm-value" id="rm-value">0 lbs</span>
                 </div>
                 <p class="rm-note" id="rm-note"></p>
-                <button id="toggle-rm-percentages" class="secondary-btn">View Percentages</button>
+                <button id="toggle-rm-percentages" class="secondary-btn" data-i18n="rmViewPercentages">View Percentages</button>
                 <div id="rm-percentages" class="percentage-table hidden"></div>
             </div>
 
@@ -145,7 +145,7 @@
         </section>
 
         <section id="percentage-chart" class="tool-section">
-            <h2>Percentage Chart</h2>
+            <h2 data-i18n="chartTitle">Percentage Chart</h2>
 
             <div class="unit-toggle" id="chart-unit-toggle">
                 <button class="unit-btn active" data-unit="lbs">lbs</button>
@@ -153,11 +153,11 @@
             </div>
 
             <div class="input-group">
-                <label for="chart-1rm">Your 1RM (<span class="chart-unit-label">lbs</span>)</label>
-                <input type="number" id="chart-1rm" min="0" step="2.5" placeholder="Enter your 1RM">
+                <label for="chart-1rm"><span data-i18n="chartYour1RM">Your 1RM</span> (<span class="chart-unit-label">lbs</span>)</label>
+                <input type="number" id="chart-1rm" min="0" step="2.5" data-i18n-placeholder="placeholderYour1RM">
             </div>
 
-            <button id="generate-chart-btn" class="calculate-btn">Generate Chart</button>
+            <button id="generate-chart-btn" class="calculate-btn" data-i18n="chartButton">Generate Chart</button>
 
             <div id="chart-result" class="result hidden">
                 <div id="chart-percentages" class="percentage-table"></div>
@@ -167,23 +167,23 @@
         </section>
 
         <section id="unit-converter" class="tool-section">
-            <h2>Unit Converter</h2>
+            <h2 data-i18n="converterTitle">Unit Converter</h2>
 
             <div class="converter-container">
                 <div class="input-group">
-                    <label for="convert-lbs">Pounds (lbs)</label>
-                    <input type="number" id="convert-lbs" min="0" step="0.1" placeholder="Enter lbs">
+                    <label for="convert-lbs" data-i18n="converterLbs">Pounds (lbs)</label>
+                    <input type="number" id="convert-lbs" min="0" step="0.1" data-i18n-placeholder="placeholderLbs">
                 </div>
 
                 <div class="converter-arrow">⇄</div>
 
                 <div class="input-group">
-                    <label for="convert-kg">Kilograms (kg)</label>
-                    <input type="number" id="convert-kg" min="0" step="0.1" placeholder="Enter kg">
+                    <label for="convert-kg" data-i18n="converterKg">Kilograms (kg)</label>
+                    <input type="number" id="convert-kg" min="0" step="0.1" data-i18n-placeholder="placeholderKg">
                 </div>
             </div>
 
-            <p class="converter-note">Type in either field to convert</p>
+            <p class="converter-note" data-i18n="converterNote">Type in either field to convert</p>
         </section>
     </div>
 

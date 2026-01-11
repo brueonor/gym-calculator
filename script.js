@@ -1,19 +1,227 @@
+// ========== Translations ==========
+const TRANSLATIONS = {
+    en: {
+        appTitle: 'Gym Calculator',
+        navTools: 'Tools',
+        navPlateCalc: 'Plate Calculator',
+        navPlateBuilder: 'Plate Builder',
+        nav1RM: '1RM Estimator',
+        navPercentage: 'Percentage Chart',
+        navConverter: 'Unit Converter',
+
+        // Plate Calculator
+        calcTitle: 'Plate Calculator',
+        calcTargetWeight: 'Target Weight',
+        calcAvailablePlates: 'Available Plates',
+        calcButton: 'Calculate Plates',
+        calcResultTitle: 'Plates Per Side',
+        calcNoPlates: 'No plates needed - just the bar!',
+
+        // Plate Builder
+        builderTitle: 'Plate Builder',
+        builderAddPlates: 'Add Plates (per side)',
+        builderTotalWeight: 'Total Weight',
+        builderClear: 'Clear All',
+        builderNoPlates: 'No plates added',
+
+        // 1RM Estimator
+        rmTitle: '1RM Estimator',
+        rmWeightLifted: 'Weight Lifted',
+        rmReps: 'Reps Performed',
+        rmFormula: 'Formula',
+        rmButton: 'Estimate 1RM',
+        rmEstimated: 'Estimated 1RM',
+        rmViewPercentages: 'View Percentages',
+        rmHidePercentages: 'Hide Percentages',
+        rmAlready1RM: 'You already lifted your 1RM!',
+
+        // Percentage Chart
+        chartTitle: 'Percentage Chart',
+        chartYour1RM: 'Your 1RM',
+        chartButton: 'Generate Chart',
+
+        // Unit Converter
+        converterTitle: 'Unit Converter',
+        converterLbs: 'Pounds (lbs)',
+        converterKg: 'Kilograms (kg)',
+        converterNote: 'Type in either field to convert',
+
+        // Common
+        labelBarType: 'Bar Type',
+        barOlympic: 'Olympic Bar',
+        barWomens: "Women's Bar",
+
+        // Placeholders
+        placeholderWeight: 'Enter weight',
+        placeholderReps: 'Enter reps',
+        placeholderYour1RM: 'Enter your 1RM',
+        placeholderLbs: 'Enter lbs',
+        placeholderKg: 'Enter kg',
+
+        // Errors
+        errorValidWeight: 'Please enter a valid target weight.',
+        errorValidWeightRM: 'Please enter a valid weight.',
+        errorValid1RM: 'Please enter a valid 1RM.',
+        errorAtLeast1Rep: 'Please enter at least 1 rep.',
+        errorTooManyReps: '1RM estimates are less accurate above 30 reps. Try a heavier weight with fewer reps.',
+        errorSelectPlate: 'Please select at least one plate size.',
+        errorMinWeight: 'Target weight must be at least {weight} {unit} (bar weight)',
+        errorCannotMake: 'Cannot make exactly {weight} {unit} with available plates.',
+
+        // Formula notes
+        noteEpley: 'Most commonly used formula, good for moderate rep ranges.',
+        noteBrzycki: 'Popular alternative, tends to give slightly lower estimates at higher reps.',
+        noteOConnor: 'More conservative estimate, useful for higher rep ranges.',
+        noteMayhew: 'Research-based formula using exponential decay model.'
+    },
+    fr: {
+        appTitle: 'Calculateur Gym',
+        navTools: 'Outils',
+        navPlateCalc: 'Calculateur de Poids',
+        navPlateBuilder: 'Constructeur de Barre',
+        nav1RM: 'Estimateur 1RM',
+        navPercentage: 'Tableau des %',
+        navConverter: 'Convertisseur',
+
+        // Plate Calculator
+        calcTitle: 'Calculateur de Poids',
+        calcTargetWeight: 'Poids cible',
+        calcAvailablePlates: 'Poids disponibles',
+        calcButton: 'Calculer les poids',
+        calcResultTitle: 'Poids par côté',
+        calcNoPlates: 'Aucun poids nécessaire - juste la barre!',
+
+        // Plate Builder
+        builderTitle: 'Constructeur de Barre',
+        builderAddPlates: 'Ajouter des poids (par côté)',
+        builderTotalWeight: 'Poids total',
+        builderClear: 'Tout effacer',
+        builderNoPlates: 'Aucun poids ajouté',
+
+        // 1RM Estimator
+        rmTitle: 'Estimateur 1RM',
+        rmWeightLifted: 'Poids soulevé',
+        rmReps: 'Répétitions effectuées',
+        rmFormula: 'Formule',
+        rmButton: 'Estimer le 1RM',
+        rmEstimated: '1RM estimé',
+        rmViewPercentages: 'Voir les pourcentages',
+        rmHidePercentages: 'Masquer les pourcentages',
+        rmAlready1RM: 'Vous avez déjà soulevé votre 1RM!',
+
+        // Percentage Chart
+        chartTitle: 'Tableau des Pourcentages',
+        chartYour1RM: 'Votre 1RM',
+        chartButton: 'Générer le tableau',
+
+        // Unit Converter
+        converterTitle: 'Convertisseur d\'unités',
+        converterLbs: 'Livres (lbs)',
+        converterKg: 'Kilogrammes (kg)',
+        converterNote: 'Tapez dans un champ pour convertir',
+
+        // Common
+        labelBarType: 'Type de barre',
+        barOlympic: 'Barre olympique',
+        barWomens: 'Barre femme',
+
+        // Placeholders
+        placeholderWeight: 'Entrer le poids',
+        placeholderReps: 'Entrer les reps',
+        placeholderYour1RM: 'Entrer votre 1RM',
+        placeholderLbs: 'Entrer lbs',
+        placeholderKg: 'Entrer kg',
+
+        // Errors
+        errorValidWeight: 'Veuillez entrer un poids valide.',
+        errorValidWeightRM: 'Veuillez entrer un poids valide.',
+        errorValid1RM: 'Veuillez entrer un 1RM valide.',
+        errorAtLeast1Rep: 'Veuillez entrer au moins 1 répétition.',
+        errorTooManyReps: 'Les estimations 1RM sont moins précises au-delà de 30 reps. Essayez un poids plus lourd avec moins de reps.',
+        errorSelectPlate: 'Veuillez sélectionner au moins un poids.',
+        errorMinWeight: 'Le poids cible doit être d\'au moins {weight} {unit} (poids de la barre)',
+        errorCannotMake: 'Impossible de faire exactement {weight} {unit} avec les poids disponibles.',
+
+        // Formula notes
+        noteEpley: 'Formule la plus utilisée, bonne pour les séries modérées.',
+        noteBrzycki: 'Alternative populaire, donne des estimations légèrement plus basses pour les hautes répétitions.',
+        noteOConnor: 'Estimation plus conservatrice, utile pour les hautes répétitions.',
+        noteMayhew: 'Formule basée sur la recherche utilisant un modèle de décroissance exponentielle.'
+    }
+};
+
+let currentLang = 'en';
+
+function t(key) {
+    return TRANSLATIONS[currentLang][key] || TRANSLATIONS['en'][key] || key;
+}
+
+function applyTranslations() {
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+    });
+
+    // Update all placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        el.placeholder = t(key);
+    });
+
+    // Update page title
+    document.title = t('appTitle');
+
+    // Re-render dynamic elements
+    updateCalcBarSelect();
+    updateBuilderBarSelect();
+}
+
+function detectBrowserLanguage() {
+    const browserLang = navigator.language || navigator.userLanguage;
+    if (browserLang && browserLang.toLowerCase().startsWith('fr')) {
+        return 'fr';
+    }
+    return 'en';
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+
+    // Update toggle buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    applyTranslations();
+}
+
+// Language toggle event listeners
+document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        setLanguage(btn.dataset.lang);
+    });
+});
+
 // ========== Unit Configuration ==========
 const PLATES = {
     lbs: [45, 35, 25, 15, 10, 5, 2.5],
     kg: [25, 20, 15, 10, 5, 2.5, 1.25]
 };
 
-const BARS = {
-    lbs: [
-        { value: 45, label: 'Olympic Bar (45 lbs)' },
-        { value: 35, label: "Women's Bar (35 lbs)" }
-    ],
-    kg: [
-        { value: 20, label: 'Olympic Bar (20 kg)' },
-        { value: 15, label: "Women's Bar (15 kg)" }
-    ]
-};
+function getBarOptions(unit) {
+    if (unit === 'lbs') {
+        return [
+            { value: 45, label: `${t('barOlympic')} (45 lbs)` },
+            { value: 35, label: `${t('barWomens')} (35 lbs)` }
+        ];
+    } else {
+        return [
+            { value: 20, label: `${t('barOlympic')} (20 kg)` },
+            { value: 15, label: `${t('barWomens')} (15 kg)` }
+        ];
+    }
+}
 
 // Current unit state for each tool
 const unitState = {
@@ -38,7 +246,7 @@ function renderCalcPlateCheckboxes() {
 
 function updateCalcBarSelect() {
     const select = document.getElementById('bar-type');
-    const bars = BARS[unitState.calculator];
+    const bars = getBarOptions(unitState.calculator);
 
     select.innerHTML = bars.map(b =>
         `<option value="${b.value}">${b.label}</option>`
@@ -63,7 +271,7 @@ function calculatePlates(targetWeight, barWeight, availablePlates, unit) {
     const weightToLoad = targetWeight - barWeight;
 
     if (weightToLoad < 0) {
-        return { error: `Target weight must be at least ${barWeight} ${unit} (bar weight)` };
+        return { error: t('errorMinWeight').replace('{weight}', barWeight).replace('{unit}', unit) };
     }
 
     if (weightToLoad === 0) {
@@ -73,7 +281,7 @@ function calculatePlates(targetWeight, barWeight, availablePlates, unit) {
     const perSide = weightToLoad / 2;
 
     if (availablePlates.length === 0) {
-        return { error: 'Please select at least one plate size.' };
+        return { error: t('errorSelectPlate') };
     }
 
     const plates = [];
@@ -88,7 +296,7 @@ function calculatePlates(targetWeight, barWeight, availablePlates, unit) {
     }
 
     if (remaining > 0) {
-        return { error: `Cannot make exactly ${targetWeight} ${unit} with available plates.` };
+        return { error: t('errorCannotMake').replace('{weight}', targetWeight).replace('{unit}', unit) };
     }
 
     return { plates, perSide };
@@ -98,7 +306,7 @@ function renderPlatesList(plates, unit) {
     const container = document.getElementById('plates-list');
 
     if (plates.length === 0) {
-        container.innerHTML = '<p>No plates needed - just the bar!</p>';
+        container.innerHTML = `<p>${t('calcNoPlates')}</p>`;
         return;
     }
 
@@ -152,7 +360,7 @@ function handleCalculate() {
     errorDiv.classList.add('hidden');
 
     if (isNaN(targetWeight) || targetWeight <= 0) {
-        errorDiv.textContent = 'Please enter a valid target weight.';
+        errorDiv.textContent = t('errorValidWeight');
         errorDiv.classList.remove('hidden');
         return;
     }
@@ -260,7 +468,7 @@ function renderBuilderPlateButtons() {
 
 function updateBuilderBarSelect() {
     const select = document.getElementById('builder-bar-type');
-    const bars = BARS[unitState.builder];
+    const bars = getBarOptions(unitState.builder);
 
     select.innerHTML = bars.map(b =>
         `<option value="${b.value}">${b.label}</option>`
@@ -304,7 +512,7 @@ function updateBuilderDisplay() {
     const grouped = groupPlatesForDisplay(builderPlates, unit);
 
     if (grouped.length === 0) {
-        listContainer.innerHTML = '<span style="color: #666;">No plates added</span>';
+        listContainer.innerHTML = `<span style="color: #666;">${t('builderNoPlates')}</span>`;
     } else {
         listContainer.innerHTML = grouped.map(p => `
             <div class="plate-tag clickable" data-weight="${p.weight}">
@@ -364,22 +572,22 @@ const RM_FORMULAS = {
     epley: {
         name: 'Epley',
         calculate: (weight, reps) => weight * (1 + reps / 30),
-        note: 'Most commonly used formula, good for moderate rep ranges.'
+        noteKey: 'noteEpley'
     },
     brzycki: {
         name: 'Brzycki',
         calculate: (weight, reps) => weight * (36 / (37 - reps)),
-        note: 'Popular alternative, tends to give slightly lower estimates at higher reps.'
+        noteKey: 'noteBrzycki'
     },
     oconnor: {
         name: "O'Connor",
         calculate: (weight, reps) => weight * (1 + reps / 40),
-        note: 'More conservative estimate, useful for higher rep ranges.'
+        noteKey: 'noteOConnor'
     },
     mayhew: {
         name: 'Mayhew/Wathen',
         calculate: (weight, reps) => 100 * weight / (52.2 + 41.9 * Math.exp(-0.055 * reps)),
-        note: 'Research-based formula using exponential decay model.'
+        noteKey: 'noteMayhew'
     }
 };
 
@@ -397,16 +605,16 @@ function calculateOneRM() {
     resultDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
     document.getElementById('rm-percentages').classList.add('hidden');
-    document.getElementById('toggle-rm-percentages').textContent = 'View Percentages';
+    document.getElementById('toggle-rm-percentages').textContent = t('rmViewPercentages');
 
     if (isNaN(weight) || weight <= 0) {
-        errorDiv.textContent = 'Please enter a valid weight.';
+        errorDiv.textContent = t('errorValidWeightRM');
         errorDiv.classList.remove('hidden');
         return;
     }
 
     if (isNaN(reps) || reps < 1) {
-        errorDiv.textContent = 'Please enter at least 1 rep.';
+        errorDiv.textContent = t('errorAtLeast1Rep');
         errorDiv.classList.remove('hidden');
         return;
     }
@@ -414,13 +622,13 @@ function calculateOneRM() {
     if (reps === 1) {
         currentRMValue = weight;
         document.getElementById('rm-value').textContent = `${weight} ${unit}`;
-        document.getElementById('rm-note').textContent = 'You already lifted your 1RM!';
+        document.getElementById('rm-note').textContent = t('rmAlready1RM');
         resultDiv.classList.remove('hidden');
         return;
     }
 
     if (reps > 30) {
-        errorDiv.textContent = '1RM estimates are less accurate above 30 reps. Try a heavier weight with fewer reps.';
+        errorDiv.textContent = t('errorTooManyReps');
         errorDiv.classList.remove('hidden');
         return;
     }
@@ -430,7 +638,7 @@ function calculateOneRM() {
     currentRMValue = oneRM;
 
     document.getElementById('rm-value').textContent = `${oneRM} ${unit}`;
-    document.getElementById('rm-note').textContent = formula.note;
+    document.getElementById('rm-note').textContent = t(formula.noteKey);
     resultDiv.classList.remove('hidden');
 }
 
@@ -493,10 +701,10 @@ document.getElementById('toggle-rm-percentages').addEventListener('click', () =>
     if (container.classList.contains('hidden')) {
         generatePercentageTable(currentRMValue, 'rm-percentages', unitState.rm);
         container.classList.remove('hidden');
-        btn.textContent = 'Hide Percentages';
+        btn.textContent = t('rmHidePercentages');
     } else {
         container.classList.add('hidden');
-        btn.textContent = 'View Percentages';
+        btn.textContent = t('rmViewPercentages');
     }
 });
 
@@ -511,7 +719,7 @@ function generateChart() {
     errorDiv.classList.add('hidden');
 
     if (isNaN(oneRM) || oneRM <= 0) {
-        errorDiv.textContent = 'Please enter a valid 1RM.';
+        errorDiv.textContent = t('errorValid1RM');
         errorDiv.classList.remove('hidden');
         return;
     }
@@ -573,3 +781,6 @@ kgInput.addEventListener('input', () => {
         lbsInput.value = '';
     }
 });
+
+// ========== Initialize Language ==========
+setLanguage(detectBrowserLanguage());
