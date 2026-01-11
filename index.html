@@ -35,8 +35,13 @@
         <section id="plate-calculator" class="tool-section active">
             <h2>Plate Calculator</h2>
 
+            <div class="unit-toggle">
+                <button class="unit-btn active" data-unit="lbs">lbs</button>
+                <button class="unit-btn" data-unit="kg">kg</button>
+            </div>
+
             <div class="input-group">
-                <label for="target-weight">Target Weight (lbs)</label>
+                <label for="target-weight">Target Weight (<span class="calc-unit">lbs</span>)</label>
                 <input type="number" id="target-weight" min="0" step="2.5" placeholder="Enter weight">
             </div>
 
@@ -49,37 +54,8 @@
             </div>
 
             <div class="input-group">
-                <label>Available Plates (lbs)</label>
-                <div class="plate-checkboxes">
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="45" checked>
-                        <span>45</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="35" checked>
-                        <span>35</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="25" checked>
-                        <span>25</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="15" checked>
-                        <span>15</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="10" checked>
-                        <span>10</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="5" checked>
-                        <span>5</span>
-                    </label>
-                    <label class="plate-checkbox">
-                        <input type="checkbox" value="2.5" checked>
-                        <span>2.5</span>
-                    </label>
-                </div>
+                <label>Available Plates (<span class="calc-unit">lbs</span>)</label>
+                <div class="plate-checkboxes" id="calc-plate-checkboxes"></div>
             </div>
 
             <button id="calculate-btn" class="calculate-btn">Calculate Plates</button>
@@ -96,6 +72,11 @@
         <section id="plate-builder" class="tool-section">
             <h2>Plate Builder</h2>
 
+            <div class="unit-toggle" id="builder-unit-toggle">
+                <button class="unit-btn active" data-unit="lbs">lbs</button>
+                <button class="unit-btn" data-unit="kg">kg</button>
+            </div>
+
             <div class="input-group">
                 <label for="builder-bar-type">Bar Type</label>
                 <select id="builder-bar-type">
@@ -106,15 +87,7 @@
 
             <div class="input-group">
                 <label>Add Plates (per side)</label>
-                <div class="plate-buttons">
-                    <button class="plate-btn" data-weight="45">+45</button>
-                    <button class="plate-btn" data-weight="35">+35</button>
-                    <button class="plate-btn" data-weight="25">+25</button>
-                    <button class="plate-btn" data-weight="15">+15</button>
-                    <button class="plate-btn" data-weight="10">+10</button>
-                    <button class="plate-btn" data-weight="5">+5</button>
-                    <button class="plate-btn" data-weight="2.5">+2.5</button>
-                </div>
+                <div class="plate-buttons" id="builder-plate-buttons"></div>
             </div>
 
             <div class="builder-result">
@@ -131,8 +104,13 @@
         <section id="one-rm-calculator" class="tool-section">
             <h2>1RM Estimator</h2>
 
+            <div class="unit-toggle" id="rm-unit-toggle">
+                <button class="unit-btn active" data-unit="lbs">lbs</button>
+                <button class="unit-btn" data-unit="kg">kg</button>
+            </div>
+
             <div class="input-group">
-                <label for="rm-weight">Weight Lifted (lbs)</label>
+                <label for="rm-weight">Weight Lifted (<span class="rm-unit-label">lbs</span>)</label>
                 <input type="number" id="rm-weight" min="0" step="2.5" placeholder="Enter weight">
             </div>
 
@@ -169,8 +147,13 @@
         <section id="percentage-chart" class="tool-section">
             <h2>Percentage Chart</h2>
 
+            <div class="unit-toggle" id="chart-unit-toggle">
+                <button class="unit-btn active" data-unit="lbs">lbs</button>
+                <button class="unit-btn" data-unit="kg">kg</button>
+            </div>
+
             <div class="input-group">
-                <label for="chart-1rm">Your 1RM (lbs)</label>
+                <label for="chart-1rm">Your 1RM (<span class="chart-unit-label">lbs</span>)</label>
                 <input type="number" id="chart-1rm" min="0" step="2.5" placeholder="Enter your 1RM">
             </div>
 

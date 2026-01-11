@@ -1,17 +1,69 @@
-const ALL_PLATES = [45, 35, 25, 15, 10, 5, 2.5];
+// ========== Unit Configuration ==========
+const PLATES = {
+    lbs: [45, 35, 25, 15, 10, 5, 2.5],
+    kg: [25, 20, 15, 10, 5, 2.5, 1.25]
+};
+
+const BARS = {
+    lbs: [
+        { value: 45, label: 'Olympic Bar (45 lbs)' },
+        { value: 35, label: "Women's Bar (35 lbs)" }
+    ],
+    kg: [
+        { value: 20, label: 'Olympic Bar (20 kg)' },
+        { value: 15, label: "Women's Bar (15 kg)" }
+    ]
+};
+
+// Current unit state for each tool
+const unitState = {
+    calculator: 'lbs',
+    builder: 'lbs',
+    rm: 'lbs',
+    chart: 'lbs'
+};
+
+// ========== Plate Calculator ==========
+function renderCalcPlateCheckboxes() {
+    const container = document.getElementById('calc-plate-checkboxes');
+    const plates = PLATES[unitState.calculator];
+
+    container.innerHTML = plates.map(p => `
+        <label class="plate-checkbox">
+            <input type="checkbox" value="${p}" checked>
+            <span>${p}</span>
+        </label>
+    `).join('');
+}
+
+function updateCalcBarSelect() {
+    const select = document.getElementById('bar-type');
+    const bars = BARS[unitState.calculator];
+
+    select.innerHTML = bars.map(b =>
+        `<option value="${b.value}">${b.label}</option>`
+    ).join('');
+}
+
+function updateCalcUnitLabels() {
+    const unit = unitState.calculator;
+    document.querySelectorAll('#plate-calculator .calc-unit').forEach(el => {
+        el.textContent = unit;
+    });
+}
 
 function getSelectedPlates() {
-    const checkboxes = document.querySelectorAll('.plate-checkbox input:checked');
+    const checkboxes = document.querySelectorAll('#calc-plate-checkboxes input:checked');
     return Array.from(checkboxes)
         .map(cb => parseFloat(cb.value))
         .sort((a, b) => b - a);
 }
 
-function calculatePlates(targetWeight, barWeight, availablePlates) {
+function calculatePlates(targetWeight, barWeight, availablePlates, unit) {
     const weightToLoad = targetWeight - barWeight;
 
     if (weightToLoad < 0) {
-        return { error: `Target weight must be at least ${barWeight} lbs (bar weight)` };
+        return { error: `Target weight must be at least ${barWeight} ${unit} (bar weight)` };
     }
 
     if (weightToLoad === 0) {
@@ -36,13 +88,13 @@ function calculatePlates(targetWeight, barWeight, availablePlates) {
     }
 
     if (remaining > 0) {
-        return { error: `Cannot make exactly ${targetWeight} lbs with available plates.` };
+        return { error: `Cannot make exactly ${targetWeight} ${unit} with available plates.` };
     }
 
     return { plates, perSide };
 }
 
-function renderPlatesList(plates) {
+function renderPlatesList(plates, unit) {
     const container = document.getElementById('plates-list');
 
     if (plates.length === 0) {
@@ -52,7 +104,7 @@ function renderPlatesList(plates) {
 
     container.innerHTML = plates.map(p => `
         <div class="plate-tag">
-            ${p.weight} lbs
+            ${p.weight} ${unit}
             <span class="count">×${p.count}</span>
         </div>
     `).join('');
@@ -61,12 +113,19 @@ function renderPlatesList(plates) {
 function renderBarbellVisual(plates, containerId) {
     const container = document.getElementById(containerId);
 
-    // Create plates HTML for left side (reversed order - smallest closest to center)
+    if (!plates || plates.length === 0) {
+        container.innerHTML = `
+            <div class="bar"></div>
+            <div class="bar bar-center"></div>
+            <div class="bar"></div>
+        `;
+        return;
+    }
+
     const leftPlates = [...plates].reverse().flatMap(p =>
         Array(p.count).fill(`<div class="plate plate-${p.weight}">${p.weight}</div>`)
     ).join('');
 
-    // Create plates HTML for right side (largest on outside)
     const rightPlates = plates.flatMap(p =>
         Array(p.count).fill(`<div class="plate plate-${p.weight}">${p.weight}</div>`)
     ).join('');
@@ -84,11 +143,11 @@ function handleCalculate() {
     const targetWeight = parseFloat(document.getElementById('target-weight').value);
     const barWeight = parseInt(document.getElementById('bar-type').value);
     const availablePlates = getSelectedPlates();
+    const unit = unitState.calculator;
 
     const resultDiv = document.getElementById('result');
     const errorDiv = document.getElementById('error');
 
-    // Hide both initially
     resultDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
 
@@ -98,7 +157,7 @@ function handleCalculate() {
         return;
     }
 
-    const result = calculatePlates(targetWeight, barWeight, availablePlates);
+    const result = calculatePlates(targetWeight, barWeight, availablePlates, unit);
 
     if (result.error) {
         errorDiv.textContent = result.error;
@@ -106,21 +165,47 @@ function handleCalculate() {
         return;
     }
 
-    renderPlatesList(result.plates);
+    renderPlatesList(result.plates, unit);
     renderBarbellVisual(result.plates, 'barbell-visual');
     resultDiv.classList.remove('hidden');
 }
 
-// Event listeners
+// Plate Calculator unit toggle
+document.querySelectorAll('#plate-calculator .unit-toggle .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const unit = btn.dataset.unit;
+        if (unit === unitState.calculator) return;
+
+        unitState.calculator = unit;
+
+        // Update toggle buttons
+        document.querySelectorAll('#plate-calculator .unit-toggle .unit-btn').forEach(b =>
+            b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Update UI
+        renderCalcPlateCheckboxes();
+        updateCalcBarSelect();
+        updateCalcUnitLabels();
+
+        // Clear results
+        document.getElementById('result').classList.add('hidden');
+        document.getElementById('error').classList.add('hidden');
+        document.getElementById('target-weight').value = '';
+    });
+});
+
 document.getElementById('calculate-btn').addEventListener('click', handleCalculate);
 
 document.getElementById('target-weight').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        handleCalculate();
-    }
+    if (e.key === 'Enter') handleCalculate();
 });
 
-// Hamburger menu
+// Initialize Plate Calculator
+renderCalcPlateCheckboxes();
+updateCalcBarSelect();
+
+// ========== Hamburger Menu ==========
 const menuToggle = document.getElementById('menu-toggle');
 const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
@@ -139,15 +224,12 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const toolId = btn.dataset.tool;
 
-        // Update nav buttons
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
-        // Update tool sections
         document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
         document.getElementById(toolId).classList.add('active');
 
-        // Close menu
         if (sidebar.classList.contains('open')) {
             toggleMenu();
         }
@@ -155,7 +237,35 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 });
 
 // ========== Plate Builder ==========
-let builderPlates = []; // Array of plate weights added (in order)
+let builderPlates = [];
+
+function renderBuilderPlateButtons() {
+    const container = document.getElementById('builder-plate-buttons');
+    const plates = PLATES[unitState.builder];
+
+    container.innerHTML = plates.map(p =>
+        `<button class="plate-btn" data-weight="${p}">+${p}</button>`
+    ).join('');
+
+    // Add click handlers
+    container.querySelectorAll('.plate-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const weight = parseFloat(btn.dataset.weight);
+            builderPlates.push(weight);
+            builderPlates.sort((a, b) => b - a);
+            updateBuilderDisplay();
+        });
+    });
+}
+
+function updateBuilderBarSelect() {
+    const select = document.getElementById('builder-bar-type');
+    const bars = BARS[unitState.builder];
+
+    select.innerHTML = bars.map(b =>
+        `<option value="${b.value}">${b.label}</option>`
+    ).join('');
+}
 
 function getBuilderBarWeight() {
     return parseInt(document.getElementById('builder-bar-type').value);
@@ -167,17 +277,16 @@ function calculateBuilderTotal() {
     return barWeight + platesWeight;
 }
 
-function groupPlatesForDisplay(plates) {
+function groupPlatesForDisplay(plates, unit) {
     const grouped = [];
     const counts = {};
+    const allPlates = PLATES[unit];
 
-    // Count each plate type
     plates.forEach(w => {
         counts[w] = (counts[w] || 0) + 1;
     });
 
-    // Convert to array sorted by weight descending
-    ALL_PLATES.forEach(w => {
+    allPlates.forEach(w => {
         if (counts[w]) {
             grouped.push({ weight: w, count: counts[w] });
         }
@@ -187,25 +296,23 @@ function groupPlatesForDisplay(plates) {
 }
 
 function updateBuilderDisplay() {
-    // Update total weight
+    const unit = unitState.builder;
     const total = calculateBuilderTotal();
-    document.getElementById('builder-total').textContent = `${total} lbs`;
+    document.getElementById('builder-total').textContent = `${total} ${unit}`;
 
-    // Update plates list
     const listContainer = document.getElementById('builder-plates-list');
-    const grouped = groupPlatesForDisplay(builderPlates);
+    const grouped = groupPlatesForDisplay(builderPlates, unit);
 
     if (grouped.length === 0) {
         listContainer.innerHTML = '<span style="color: #666;">No plates added</span>';
     } else {
         listContainer.innerHTML = grouped.map(p => `
             <div class="plate-tag clickable" data-weight="${p.weight}">
-                ${p.weight} lbs
+                ${p.weight} ${unit}
                 <span class="count">×${p.count}</span>
             </div>
         `).join('');
 
-        // Add click handlers to remove plates
         listContainer.querySelectorAll('.plate-tag.clickable').forEach(tag => {
             tag.addEventListener('click', () => {
                 const weight = parseFloat(tag.dataset.weight);
@@ -218,31 +325,38 @@ function updateBuilderDisplay() {
         });
     }
 
-    // Update barbell visual
     renderBarbellVisual(grouped, 'builder-barbell-visual');
 }
 
-// Plate buttons
-document.querySelectorAll('.plate-btn').forEach(btn => {
+// Builder unit toggle
+document.querySelectorAll('#builder-unit-toggle .unit-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        const weight = parseFloat(btn.dataset.weight);
-        builderPlates.push(weight);
-        // Sort plates so largest are on outside (first in array)
-        builderPlates.sort((a, b) => b - a);
+        const unit = btn.dataset.unit;
+        if (unit === unitState.builder) return;
+
+        unitState.builder = unit;
+
+        document.querySelectorAll('#builder-unit-toggle .unit-btn').forEach(b =>
+            b.classList.remove('active'));
+        btn.classList.add('active');
+
+        renderBuilderPlateButtons();
+        updateBuilderBarSelect();
+        builderPlates = [];
         updateBuilderDisplay();
     });
 });
 
-// Clear button
 document.getElementById('clear-plates-btn').addEventListener('click', () => {
     builderPlates = [];
     updateBuilderDisplay();
 });
 
-// Update total when bar type changes
 document.getElementById('builder-bar-type').addEventListener('change', updateBuilderDisplay);
 
-// Initialize builder display
+// Initialize Plate Builder
+renderBuilderPlateButtons();
+updateBuilderBarSelect();
 updateBuilderDisplay();
 
 // ========== 1RM Estimator ==========
@@ -269,18 +383,19 @@ const RM_FORMULAS = {
     }
 };
 
+let currentRMValue = 0;
+
 function calculateOneRM() {
     const weight = parseFloat(document.getElementById('rm-weight').value);
     const reps = parseInt(document.getElementById('rm-reps').value);
     const formulaKey = document.getElementById('rm-formula').value;
+    const unit = unitState.rm;
 
     const resultDiv = document.getElementById('rm-result');
     const errorDiv = document.getElementById('rm-error');
 
     resultDiv.classList.add('hidden');
     errorDiv.classList.add('hidden');
-
-    // Reset percentages toggle
     document.getElementById('rm-percentages').classList.add('hidden');
     document.getElementById('toggle-rm-percentages').textContent = 'View Percentages';
 
@@ -297,7 +412,8 @@ function calculateOneRM() {
     }
 
     if (reps === 1) {
-        document.getElementById('rm-value').textContent = `${weight} lbs`;
+        currentRMValue = weight;
+        document.getElementById('rm-value').textContent = `${weight} ${unit}`;
         document.getElementById('rm-note').textContent = 'You already lifted your 1RM!';
         resultDiv.classList.remove('hidden');
         return;
@@ -311,11 +427,35 @@ function calculateOneRM() {
 
     const formula = RM_FORMULAS[formulaKey];
     const oneRM = Math.round(formula.calculate(weight, reps) * 10) / 10;
+    currentRMValue = oneRM;
 
-    document.getElementById('rm-value').textContent = `${oneRM} lbs`;
+    document.getElementById('rm-value').textContent = `${oneRM} ${unit}`;
     document.getElementById('rm-note').textContent = formula.note;
     resultDiv.classList.remove('hidden');
 }
+
+// RM unit toggle
+document.querySelectorAll('#rm-unit-toggle .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const unit = btn.dataset.unit;
+        if (unit === unitState.rm) return;
+
+        unitState.rm = unit;
+
+        document.querySelectorAll('#rm-unit-toggle .unit-btn').forEach(b =>
+            b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.rm-unit-label').forEach(el => {
+            el.textContent = unit;
+        });
+
+        // Clear results
+        document.getElementById('rm-result').classList.add('hidden');
+        document.getElementById('rm-error').classList.add('hidden');
+        document.getElementById('rm-weight').value = '';
+    });
+});
 
 document.getElementById('calculate-rm-btn').addEventListener('click', calculateOneRM);
 
@@ -330,7 +470,7 @@ document.getElementById('rm-reps').addEventListener('keypress', (e) => {
 // ========== Percentage Chart ==========
 const PERCENTAGES = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30];
 
-function generatePercentageTable(oneRM, containerId) {
+function generatePercentageTable(oneRM, containerId, unit) {
     const container = document.getElementById(containerId);
 
     container.innerHTML = PERCENTAGES.map(pct => {
@@ -339,7 +479,7 @@ function generatePercentageTable(oneRM, containerId) {
         return `
             <div class="percentage-row${highlight}">
                 <span class="percentage-label">${pct}%</span>
-                <span class="percentage-weight">${weight} lbs</span>
+                <span class="percentage-weight">${weight} ${unit}</span>
             </div>
         `;
     }).join('');
@@ -351,8 +491,7 @@ document.getElementById('toggle-rm-percentages').addEventListener('click', () =>
     const btn = document.getElementById('toggle-rm-percentages');
 
     if (container.classList.contains('hidden')) {
-        const oneRM = parseFloat(document.getElementById('rm-value').textContent);
-        generatePercentageTable(oneRM, 'rm-percentages');
+        generatePercentageTable(currentRMValue, 'rm-percentages', unitState.rm);
         container.classList.remove('hidden');
         btn.textContent = 'Hide Percentages';
     } else {
@@ -364,6 +503,7 @@ document.getElementById('toggle-rm-percentages').addEventListener('click', () =>
 // Standalone Percentage Chart
 function generateChart() {
     const oneRM = parseFloat(document.getElementById('chart-1rm').value);
+    const unit = unitState.chart;
     const resultDiv = document.getElementById('chart-result');
     const errorDiv = document.getElementById('chart-error');
 
@@ -376,9 +516,32 @@ function generateChart() {
         return;
     }
 
-    generatePercentageTable(oneRM, 'chart-percentages');
+    generatePercentageTable(oneRM, 'chart-percentages', unit);
     resultDiv.classList.remove('hidden');
 }
+
+// Chart unit toggle
+document.querySelectorAll('#chart-unit-toggle .unit-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const unit = btn.dataset.unit;
+        if (unit === unitState.chart) return;
+
+        unitState.chart = unit;
+
+        document.querySelectorAll('#chart-unit-toggle .unit-btn').forEach(b =>
+            b.classList.remove('active'));
+        btn.classList.add('active');
+
+        document.querySelectorAll('.chart-unit-label').forEach(el => {
+            el.textContent = unit;
+        });
+
+        // Clear results
+        document.getElementById('chart-result').classList.add('hidden');
+        document.getElementById('chart-error').classList.add('hidden');
+        document.getElementById('chart-1rm').value = '';
+    });
+});
 
 document.getElementById('generate-chart-btn').addEventListener('click', generateChart);
 

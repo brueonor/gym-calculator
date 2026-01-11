@@ -34,7 +34,14 @@ Open `index.html` directly in a browser to test. No build step or server require
 
 **Unit Converter**: Real-time conversion between lbs and kg.
 
+## Unit Support
+
+All tools (except Unit Converter) have a lbs/kg toggle. Plate tools use standard plate sets:
+- **lbs**: 45, 35, 25, 15, 10, 5, 2.5
+- **kg**: 25, 20, 15, 10, 5, 2.5, 1.25
+
+Bar weights: 45/35 lbs or 20/15 kg (Olympic/Women's)
+
 ## Constraints
 
 - No npm, no bundlers, no frameworks - must work as static files on GitHub Pages
-- All weights in lbs (no kg conversion)

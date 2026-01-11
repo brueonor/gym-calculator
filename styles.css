@@ -171,6 +171,38 @@ h2 {
     display: block;
 }
 
+/* Unit Toggle */
+.unit-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: #0f0f23;
+    border-radius: 8px;
+    padding: 4px;
+    width: fit-content;
+}
+
+.unit-btn {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    color: #666;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.unit-btn:hover {
+    color: #aaa;
+}
+
+.unit-btn.active {
+    background: #00d4ff;
+    color: #1a1a2e;
+}
+
 .input-group {
     margin-bottom: 20px;
 }
@@ -363,6 +395,7 @@ h2 {
     text-orientation: mixed;
 }
 
+/* lbs plates */
 .plate-45 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }
 .plate-35 { background: linear-gradient(to right, #eab308, #ca8a04); height: 75px; min-width: 12px; }
 .plate-25 { background: linear-gradient(to right, #16a34a, #15803d); height: 70px; min-width: 11px; }
@@ -370,6 +403,10 @@ h2 {
 .plate-10 { background: linear-gradient(to right, #9333ea, #7e22ce); height: 55px; min-width: 9px; }
 .plate-5 { background: linear-gradient(to right, #64748b, #475569); height: 45px; min-width: 8px; }
 .plate-2\.5 { background: linear-gradient(to right, #78716c, #57534e); height: 35px; min-width: 6px; }
+
+/* kg plates */
+.plate-20 { background: linear-gradient(to right, #2563eb, #1d4ed8); height: 80px; min-width: 14px; }
+.plate-1\.25 { background: linear-gradient(to right, #a3a3a3, #737373); height: 30px; min-width: 5px; }
 
 .error {
     margin-top: 20px;
