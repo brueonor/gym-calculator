@@ -6,8 +6,8 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-    background: #1a1a2e;
-    color: #eee;
+    background: #1a1518;
+    color: #e0e0e0;
     min-height: 100vh;
     padding: 80px 20px 20px;
 }
@@ -19,18 +19,19 @@ body {
     left: 0;
     right: 0;
     height: 60px;
-    background: #16213e;
+    background: #2d2d2d;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .header h1 {
     margin: 0;
     font-size: 1.4rem;
+    color: #e0e0e0;
 }
 
 .header-controls {
@@ -41,7 +42,7 @@ body {
 
 .lang-toggle {
     display: flex;
-    background: #0f0f23;
+    background: #202222;
     border-radius: 6px;
     padding: 3px;
 }
@@ -50,7 +51,7 @@ body {
     padding: 5px 10px;
     border: none;
     background: transparent;
-    color: #666;
+    color: #8a8a8a;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.8rem;
@@ -59,12 +60,12 @@ body {
 }
 
 .lang-btn:hover {
-    color: #aaa;
+    color: #e0e0e0;
 }
 
 .lang-btn.active {
-    background: #00d4ff;
-    color: #1a1a2e;
+    background: #463e4b;
+    color: #e0e0e0;
 }
 
 .menu-toggle {
@@ -81,7 +82,7 @@ body {
     display: block;
     width: 24px;
     height: 3px;
-    background: #00d4ff;
+    background: #e0e0e0;
     border-radius: 2px;
     transition: all 0.3s ease;
 }
@@ -105,10 +106,10 @@ body {
     right: -280px;
     width: 280px;
     height: calc(100vh - 60px);
-    background: #16213e;
+    background: #2d2d2d;
     z-index: 99;
     transition: right 0.3s ease;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar.open {
@@ -117,13 +118,13 @@ body {
 
 .sidebar-header {
     padding: 20px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #463e4b;
 }
 
 .sidebar-header h2 {
     margin: 0;
     font-size: 1.2rem;
-    color: #aaa;
+    color: #e0e0e0;
 }
 
 .nav-list {
@@ -140,7 +141,7 @@ body {
     padding: 15px 20px;
     border: none;
     background: transparent;
-    color: #ccc;
+    color: #e0e0e0;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
@@ -149,13 +150,13 @@ body {
 }
 
 .nav-btn:hover {
-    background: #1a1a2e;
-    color: #00d4ff;
+    background: #252025;
+    color: #e0e0e0;
 }
 
 .nav-btn.active {
-    background: #00d4ff;
-    color: #1a1a2e;
+    background: #463e4b;
+    color: #e0e0e0;
 }
 
 .overlay {
@@ -164,7 +165,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(26, 21, 24, 0.8);
     z-index: 98;
     opacity: 0;
     visibility: hidden;
@@ -184,21 +185,21 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 30px;
-    color: #00d4ff;
+    color: #e0e0e0;
     font-size: 2rem;
 }
 
 h2 {
     margin-bottom: 20px;
-    color: #fff;
+    color: #e0e0e0;
 }
 
 .tool-section {
     display: none;
-    background: #16213e;
+    background: #252025;
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .tool-section.active {
@@ -210,7 +211,7 @@ h2 {
     display: flex;
     gap: 0;
     margin-bottom: 20px;
-    background: #0f0f23;
+    background: #202222;
     border-radius: 8px;
     padding: 4px;
     width: fit-content;
@@ -220,7 +221,7 @@ h2 {
     padding: 8px 20px;
     border: none;
     background: transparent;
-    color: #666;
+    color: #8a8a8a;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
@@ -229,12 +230,12 @@ h2 {
 }
 
 .unit-btn:hover {
-    color: #aaa;
+    color: #e0e0e0;
 }
 
 .unit-btn.active {
-    background: #00d4ff;
-    color: #1a1a2e;
+    background: #463e4b;
+    color: #e0e0e0;
 }
 
 .input-group {
@@ -244,7 +245,7 @@ h2 {
 .input-group label {
     display: block;
     margin-bottom: 8px;
-    color: #aaa;
+    color: #e0e0e0;
     font-size: 0.9rem;
 }
 
@@ -252,10 +253,10 @@ h2 {
 .input-group select {
     width: 100%;
     padding: 12px 15px;
-    border: 2px solid #333;
+    border: 2px solid #463e4b;
     border-radius: 8px;
-    background: #0f0f23;
-    color: #fff;
+    background: #202222;
+    color: #e0e0e0;
     font-size: 1rem;
     transition: border-color 0.3s ease;
 }
@@ -263,7 +264,11 @@ h2 {
 .input-group input:focus,
 .input-group select:focus {
     outline: none;
-    border-color: #00d4ff;
+    border-color: #8a8a8a;
+}
+
+.input-group input::placeholder {
+    color: #6a6a6a;
 }
 
 .plate-checkboxes {
@@ -277,15 +282,15 @@ h2 {
     align-items: center;
     gap: 8px;
     padding: 8px 12px;
-    background: #0f0f23;
-    border: 2px solid #333;
+    background: #202222;
+    border: 2px solid #463e4b;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .plate-checkbox:hover {
-    border-color: #00d4ff;
+    border-color: #8a8a8a;
 }
 
 .plate-checkbox input {
@@ -293,8 +298,8 @@ h2 {
 }
 
 .plate-checkbox:has(input:checked) {
-    border-color: #00d4ff;
-    background: rgba(0, 212, 255, 0.1);
+    border-color: #8a8a8a;
+    background: rgba(70, 62, 75, 0.3);
 }
 
 .plate-checkbox:has(input:not(:checked)) {
@@ -303,7 +308,7 @@ h2 {
 
 .plate-checkbox span {
     font-weight: 600;
-    color: #aaa;
+    color: #8a8a8a;
 }
 
 .plate-checkbox .plate-color-indicator {
@@ -316,16 +321,16 @@ h2 {
 }
 
 .plate-checkbox:has(input:checked) span {
-    color: #fff;
+    color: #e0e0e0;
 }
 
 .calculate-btn {
     width: 100%;
     padding: 15px;
-    background: linear-gradient(135deg, #00d4ff, #0099cc);
+    background: linear-gradient(135deg, #463e4b, #2d2d2d);
     border: none;
     border-radius: 8px;
-    color: #fff;
+    color: #e0e0e0;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
@@ -334,7 +339,7 @@ h2 {
 
 .calculate-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
+    box-shadow: 0 4px 15px rgba(70, 62, 75, 0.5);
 }
 
 .calculate-btn:active {
@@ -344,14 +349,14 @@ h2 {
 .result {
     margin-top: 25px;
     padding: 20px;
-    background: #0f0f23;
+    background: #202222;
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid #463e4b;
 }
 
 .result h3 {
     margin-bottom: 15px;
-    color: #00d4ff;
+    color: #e0e0e0;
 }
 
 #plates-list {
@@ -363,17 +368,18 @@ h2 {
 
 .plate-tag {
     padding: 8px 16px;
-    background: #2d2d5a;
+    background: #2d2d2d;
     border-radius: 20px;
     font-weight: 600;
     display: flex;
     align-items: center;
     gap: 5px;
+    color: #e0e0e0;
 }
 
 .plate-tag .count {
-    background: #00d4ff;
-    color: #1a1a2e;
+    background: #463e4b;
+    color: #e0e0e0;
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 0.85rem;
@@ -399,7 +405,7 @@ h2 {
 
 .bar {
     height: 12px;
-    background: linear-gradient(to bottom, #888, #555);
+    background: linear-gradient(to bottom, #6a6a6a, #3a3a3a);
     border-radius: 2px;
     min-width: 60px;
 }
@@ -407,7 +413,7 @@ h2 {
 .bar-center {
     min-width: 80px;
     height: 16px;
-    background: linear-gradient(to bottom, #999, #666);
+    background: linear-gradient(to bottom, #8a8a8a, #5a5a5a);
 }
 
 .plate {
@@ -466,9 +472,9 @@ h2 {
 
 .plate-btn {
     padding: 12px 18px;
-    border: 2px solid #333;
-    background: #0f0f23;
-    color: #fff;
+    border: 2px solid #463e4b;
+    background: #202222;
+    color: #e0e0e0;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
@@ -477,8 +483,8 @@ h2 {
 }
 
 .plate-btn:hover {
-    border-color: #00d4ff;
-    background: #1a1a3e;
+    border-color: #8a8a8a;
+    background: #2d2d2d;
 }
 
 .plate-btn:active {
@@ -488,9 +494,9 @@ h2 {
 .builder-result {
     margin-top: 25px;
     padding: 20px;
-    background: #0f0f23;
+    background: #202222;
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid #463e4b;
 }
 
 .total-weight {
@@ -499,18 +505,18 @@ h2 {
     align-items: center;
     margin-bottom: 15px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #463e4b;
 }
 
 .total-weight .label {
-    color: #aaa;
+    color: #8a8a8a;
     font-size: 0.9rem;
 }
 
 .total-weight .weight-value {
     font-size: 2rem;
     font-weight: 700;
-    color: #00d4ff;
+    color: #e0e0e0;
 }
 
 .plates-list-inline {
@@ -549,19 +555,19 @@ h2 {
 }
 
 .rm-label {
-    color: #aaa;
+    color: #8a8a8a;
     font-size: 0.9rem;
 }
 
 .rm-value {
     font-size: 3rem;
     font-weight: 700;
-    color: #00d4ff;
+    color: #e0e0e0;
 }
 
 .rm-note {
     text-align: center;
-    color: #888;
+    color: #8a8a8a;
     font-size: 0.85rem;
     margin-top: 10px;
     font-style: italic;
@@ -572,16 +578,18 @@ h2 {
     margin-top: 15px;
     padding: 12px;
     background: transparent;
-    border: 2px solid #00d4ff;
+    border: 2px solid #463e4b;
     border-radius: 8px;
-    color: #00d4ff;
+    color: #8a8a8a;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .secondary-btn:hover {
-    background: rgba(0, 212, 255, 0.1);
+    background: rgba(70, 62, 75, 0.3);
+    color: #e0e0e0;
+    border-color: #8a8a8a;
 }
 
 /* Percentage Table */
@@ -594,7 +602,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     padding: 12px 15px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #463e4b;
 }
 
 .percentage-row:last-child {
@@ -602,18 +610,18 @@ h2 {
 }
 
 .percentage-row.highlight {
-    background: rgba(0, 212, 255, 0.1);
+    background: rgba(70, 62, 75, 0.3);
 }
 
 .percentage-label {
     font-weight: 600;
-    color: #aaa;
+    color: #8a8a8a;
 }
 
 .percentage-weight {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #fff;
+    color: #e0e0e0;
 }
 
 /* Unit Converter */
@@ -630,13 +638,13 @@ h2 {
 
 .converter-arrow {
     font-size: 1.5rem;
-    color: #00d4ff;
+    color: #8a8a8a;
     padding-top: 20px;
 }
 
 .converter-note {
     text-align: center;
-    color: #666;
+    color: #8a8a8a;
     font-size: 0.85rem;
     margin-top: 20px;
 }
