@@ -648,3 +648,460 @@ h2 {
     font-size: 0.85rem;
     margin-top: 20px;
 }
+
+/* ===========================================
+   RESPONSIVE STYLES
+   =========================================== */
+
+/* Large Desktop (1200px+) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 600px;
+    }
+
+    .tool-section {
+        padding: 35px;
+    }
+}
+
+/* Desktop (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .container {
+        max-width: 550px;
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        padding: 80px 30px 30px;
+    }
+
+    .container {
+        max-width: 600px;
+    }
+
+    .sidebar {
+        width: 300px;
+        right: -300px;
+    }
+}
+
+/* Small Tablet / Large Mobile (481px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    body {
+        padding: 70px 15px 15px;
+    }
+
+    .header {
+        height: 55px;
+        padding: 0 15px;
+    }
+
+    .header h1 {
+        font-size: 1.2rem;
+    }
+
+    .sidebar {
+        top: 55px;
+        height: calc(100vh - 55px);
+        width: 260px;
+        right: -260px;
+    }
+
+    .overlay {
+        top: 55px;
+    }
+
+    .tool-section {
+        padding: 20px;
+    }
+
+    .plate-checkboxes {
+        gap: 8px;
+    }
+
+    .plate-checkbox {
+        padding: 6px 10px;
+    }
+
+    .plate-btn {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .rm-value {
+        font-size: 2.5rem;
+    }
+
+    .total-weight .weight-value {
+        font-size: 1.75rem;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    body {
+        padding: 65px 12px 12px;
+    }
+
+    .header {
+        height: 50px;
+        padding: 0 12px;
+    }
+
+    .header h1 {
+        font-size: 1rem;
+    }
+
+    .header-controls {
+        gap: 8px;
+    }
+
+    .lang-toggle {
+        padding: 2px;
+    }
+
+    .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+
+    .menu-toggle {
+        padding: 8px;
+    }
+
+    .menu-toggle span {
+        width: 20px;
+        height: 2px;
+        gap: 4px;
+    }
+
+    .sidebar {
+        top: 50px;
+        height: calc(100vh - 50px);
+        width: 100%;
+        right: -100%;
+    }
+
+    .sidebar-header {
+        padding: 15px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 1.1rem;
+    }
+
+    .nav-btn {
+        padding: 12px 15px;
+        font-size: 0.95rem;
+    }
+
+    .overlay {
+        top: 50px;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+    }
+
+    .tool-section {
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .unit-toggle {
+        margin-bottom: 15px;
+    }
+
+    .unit-btn {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    .input-group label {
+        font-size: 0.85rem;
+        margin-bottom: 6px;
+    }
+
+    .input-group input,
+    .input-group select {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+    }
+
+    .plate-checkboxes {
+        gap: 6px;
+    }
+
+    .plate-checkbox {
+        padding: 6px 8px;
+        gap: 6px;
+        border-radius: 6px;
+    }
+
+    .plate-checkbox .plate-color-indicator {
+        width: 14px;
+        height: 14px;
+        margin-right: 2px;
+    }
+
+    .plate-checkbox span {
+        font-size: 0.85rem;
+    }
+
+    .calculate-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .result {
+        margin-top: 20px;
+        padding: 15px;
+    }
+
+    .result h3 {
+        font-size: 1rem;
+        margin-bottom: 12px;
+    }
+
+    #plates-list {
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+
+    .plate-tag {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+
+    .plate-tag .count {
+        padding: 2px 6px;
+        font-size: 0.8rem;
+    }
+
+    .barbell-visual {
+        padding: 15px 5px;
+        transform: scale(0.85);
+        transform-origin: center;
+    }
+
+    .plate-buttons {
+        gap: 8px;
+    }
+
+    .plate-btn {
+        padding: 10px 12px;
+        font-size: 0.9rem;
+    }
+
+    .builder-result {
+        margin-top: 20px;
+        padding: 15px;
+    }
+
+    .total-weight {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+    }
+
+    .total-weight .label {
+        font-size: 0.85rem;
+    }
+
+    .total-weight .weight-value {
+        font-size: 1.5rem;
+    }
+
+    .plates-list-inline {
+        gap: 6px;
+        margin-top: 12px;
+    }
+
+    .clear-btn {
+        margin-top: 12px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .rm-display {
+        padding: 15px 0;
+    }
+
+    .rm-label {
+        font-size: 0.85rem;
+    }
+
+    .rm-value {
+        font-size: 2rem;
+    }
+
+    .rm-note {
+        font-size: 0.8rem;
+    }
+
+    .secondary-btn {
+        margin-top: 12px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .percentage-row {
+        padding: 10px 12px;
+    }
+
+    .percentage-label {
+        font-size: 0.9rem;
+    }
+
+    .percentage-weight {
+        font-size: 1rem;
+    }
+
+    /* Stack converter inputs on mobile */
+    .converter-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .converter-container .input-group {
+        width: 100%;
+    }
+
+    .converter-arrow {
+        padding-top: 0;
+        transform: rotate(90deg);
+    }
+
+    .converter-note {
+        margin-top: 15px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small mobile (320px and below) */
+@media (max-width: 320px) {
+    body {
+        padding: 60px 8px 8px;
+    }
+
+    .header h1 {
+        font-size: 0.9rem;
+    }
+
+    .tool-section {
+        padding: 12px;
+    }
+
+    .plate-checkbox {
+        padding: 5px 6px;
+    }
+
+    .plate-checkbox .plate-color-indicator {
+        width: 12px;
+        height: 12px;
+    }
+
+    .plate-checkbox span {
+        font-size: 0.8rem;
+    }
+
+    .plate-btn {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .rm-value {
+        font-size: 1.75rem;
+    }
+
+    .total-weight .weight-value {
+        font-size: 1.3rem;
+    }
+
+    .barbell-visual {
+        transform: scale(0.7);
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .calculate-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .calculate-btn:active {
+        transform: scale(0.98);
+        background: linear-gradient(135deg, #3a3340, #252525);
+    }
+
+    .plate-btn:hover {
+        border-color: #463e4b;
+        background: #202222;
+    }
+
+    .plate-btn:active {
+        border-color: #8a8a8a;
+        background: #2d2d2d;
+    }
+
+    .nav-btn:hover {
+        background: transparent;
+    }
+
+    .nav-btn:active {
+        background: #252025;
+    }
+
+    .plate-tag.clickable:hover {
+        background: #2d2d2d;
+        transform: none;
+    }
+
+    .plate-tag.clickable:active {
+        background: #dc2626;
+        transform: scale(0.95);
+    }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        padding-top: 55px;
+    }
+
+    .header {
+        height: 45px;
+    }
+
+    .header h1 {
+        font-size: 1rem;
+    }
+
+    .sidebar {
+        top: 45px;
+        height: calc(100vh - 45px);
+    }
+
+    .overlay {
+        top: 45px;
+    }
+
+    .tool-section {
+        padding: 15px;
+    }
+
+    .barbell-visual {
+        padding: 10px 5px;
+    }
+}
