@@ -734,6 +734,167 @@ h2 {
     font-style: italic;
 }
 
+/* Rest Timer */
+.timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    color: #e0e0e0;
+    padding: 30px 20px;
+    background: #202222;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.timer-display.timer-running {
+    color: #22c55e;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.2);
+}
+
+.timer-display.timer-warning {
+    color: #f59e0b;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.timer-display.timer-done {
+    color: #dc2626;
+    animation: flash 0.5s ease-in-out 3;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+@keyframes flash {
+    0%, 100% { background: #202222; }
+    50% { background: rgba(220, 38, 38, 0.3); }
+}
+
+.timer-input-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.timer-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.timer-input-group label {
+    font-size: 0.85rem;
+    color: #8a8a8a;
+}
+
+.timer-input-group input {
+    width: 80px;
+    padding: 12px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid #463e4b;
+    border-radius: 8px;
+    background: #202222;
+    color: #e0e0e0;
+}
+
+.timer-input-group input:focus {
+    outline: none;
+    border-color: #8a8a8a;
+}
+
+.timer-input-separator {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #8a8a8a;
+    padding-bottom: 10px;
+}
+
+.quick-time-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.quick-time-btn {
+    padding: 12px 18px;
+    border: 2px solid #463e4b;
+    background: #202222;
+    color: #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.quick-time-btn:hover {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.quick-time-btn:active {
+    transform: scale(0.95);
+}
+
+.timer-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.timer-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timer-start {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+}
+
+.timer-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+}
+
+.timer-pause {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+}
+
+.timer-pause:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
+.timer-reset {
+    background: transparent;
+    border: 2px solid #dc2626;
+    color: #dc2626;
+}
+
+.timer-reset:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
 /* ===========================================
    RESPONSIVE STYLES
    =========================================== */
@@ -1100,6 +1261,42 @@ h2 {
 
     .input-note {
         font-size: 0.75rem;
+    }
+
+    /* Rest Timer mobile */
+    .timer-display {
+        font-size: 3.5rem;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+    }
+
+    .timer-input-group input {
+        width: 70px;
+        padding: 10px;
+        font-size: 1.1rem;
+    }
+
+    .timer-input-separator {
+        font-size: 1.5rem;
+    }
+
+    .quick-time-buttons {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .quick-time-btn {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+
+    .timer-controls {
+        gap: 10px;
+    }
+
+    .timer-btn {
+        padding: 12px;
+        font-size: 1rem;
     }
 }
 

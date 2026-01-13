@@ -33,6 +33,7 @@
             <li><button class="nav-btn" data-tool="percentage-chart" data-i18n="navPercentage">Percentage Chart</button></li>
             <li><button class="nav-btn" data-tool="unit-converter" data-i18n="navConverter">Unit Converter</button></li>
             <li><button class="nav-btn" data-tool="hr-zones" data-i18n="navHRZones">HR Zones</button></li>
+            <li><button class="nav-btn" data-tool="rest-timer" data-i18n="navRestTimer">Rest Timer</button></li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
@@ -224,6 +225,40 @@
             </div>
 
             <div id="hr-error" class="error hidden"></div>
+        </section>
+
+        <section id="rest-timer" class="tool-section">
+            <h2 data-i18n="timerTitle">Rest Timer</h2>
+
+            <div class="timer-display" id="timer-display">
+                <span id="timer-minutes">00</span>:<span id="timer-seconds">00</span>
+            </div>
+
+            <div class="timer-input-row">
+                <div class="timer-input-group">
+                    <label for="timer-min-input" data-i18n="timerMinutes">Minutes</label>
+                    <input type="number" id="timer-min-input" min="0" max="59" value="0">
+                </div>
+                <span class="timer-input-separator">:</span>
+                <div class="timer-input-group">
+                    <label for="timer-sec-input" data-i18n="timerSeconds">Seconds</label>
+                    <input type="number" id="timer-sec-input" min="0" max="59" value="0">
+                </div>
+            </div>
+
+            <div class="quick-time-buttons">
+                <button class="quick-time-btn" data-seconds="30">+30s</button>
+                <button class="quick-time-btn" data-seconds="60">+1min</button>
+                <button class="quick-time-btn" data-seconds="90">+90s</button>
+                <button class="quick-time-btn" data-seconds="180">+3min</button>
+                <button class="quick-time-btn" data-seconds="300">+5min</button>
+            </div>
+
+            <div class="timer-controls">
+                <button id="timer-start-btn" class="timer-btn timer-start" data-i18n="timerStart">Start</button>
+                <button id="timer-pause-btn" class="timer-btn timer-pause hidden" data-i18n="timerPause">Pause</button>
+                <button id="timer-reset-btn" class="timer-btn timer-reset" data-i18n="timerReset">Reset</button>
+            </div>
         </section>
     </div>
 

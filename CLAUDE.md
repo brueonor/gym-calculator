@@ -37,6 +37,8 @@ Open `index.html` directly in a browser to test. No build step or server require
 
 **HR Zone Calculator**: Calculates heart rate training zones using the Karvonen Formula. Takes age and resting heart rate as inputs, with optional max heart rate override (defaults to 220 - age). Displays 5 zones from recovery (50-60%) to max effort (90-100%).
 
+**Rest Timer**: Countdown timer for rest periods between sets. Manual input for minutes/seconds plus quick-add buttons (+30s, +1min, +90s, +3min, +5min). Features start/pause/reset controls, visual feedback (green when running, orange warning at 10s, red flash when done), and audio alert beeps on completion.
+
 ## Unit Support
 
 All tools (except Unit Converter) have a lbs/kg toggle. Plate tools use standard plate sets:
