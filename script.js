@@ -8,6 +8,7 @@ const TRANSLATIONS = {
         nav1RM: '1RM Estimator',
         navPercentage: 'Percentage Chart',
         navConverter: 'Unit Converter',
+        navHRZones: 'HR Zones',
 
         // Plate Calculator
         calcTitle: 'Plate Calculator',
@@ -46,6 +47,22 @@ const TRANSLATIONS = {
         converterKg: 'Kilograms (kg)',
         converterNote: 'Type in either field to convert',
 
+        // HR Zone Calculator
+        hrTitle: 'HR Zone Calculator',
+        hrAge: 'Age',
+        hrResting: 'Resting Heart Rate (bpm)',
+        hrMaxOptional: 'Max Heart Rate (optional)',
+        hrMaxNote: 'Leave blank to estimate as 220 - age',
+        hrButton: 'Calculate Zones',
+        hrMaxLabel: 'Max HR:',
+        hrReserveLabel: 'HR Reserve:',
+        hrFormulaNote: 'Calculated using the Karvonen Formula',
+        hrZone1: 'Zone 1 (Recovery)',
+        hrZone2: 'Zone 2 (Fat Burn)',
+        hrZone3: 'Zone 3 (Aerobic)',
+        hrZone4: 'Zone 4 (Threshold)',
+        hrZone5: 'Zone 5 (Max)',
+
         // Common
         labelBarType: 'Bar Type',
         barOlympic: 'Olympic Bar',
@@ -57,6 +74,9 @@ const TRANSLATIONS = {
         placeholderYour1RM: 'Enter your 1RM',
         placeholderLbs: 'Enter lbs',
         placeholderKg: 'Enter kg',
+        placeholderAge: 'Enter age',
+        placeholderResting: 'Enter resting HR',
+        placeholderMaxHR: 'Enter max HR or leave blank',
 
         // Errors
         errorValidWeight: 'Please enter a valid target weight.',
@@ -67,6 +87,9 @@ const TRANSLATIONS = {
         errorSelectPlate: 'Please select at least one plate size.',
         errorMinWeight: 'Target weight must be at least {weight} {unit} (bar weight)',
         errorCannotMake: 'Cannot make exactly {weight} {unit} with available plates.',
+        errorValidAge: 'Please enter a valid age (1-120).',
+        errorValidResting: 'Please enter a valid resting heart rate (30-120 bpm).',
+        errorValidMaxHR: 'Max heart rate must be greater than resting heart rate.',
 
         // Formula notes
         noteEpley: 'Most commonly used formula, good for moderate rep ranges.',
@@ -82,6 +105,7 @@ const TRANSLATIONS = {
         nav1RM: 'Estimateur 1RM',
         navPercentage: 'Tableau des %',
         navConverter: 'Convertisseur',
+        navHRZones: 'Zones FC',
 
         // Plate Calculator
         calcTitle: 'Calculateur de Poids',
@@ -120,6 +144,22 @@ const TRANSLATIONS = {
         converterKg: 'Kilogrammes (kg)',
         converterNote: 'Tapez dans un champ pour convertir',
 
+        // HR Zone Calculator
+        hrTitle: 'Calculateur de Zones FC',
+        hrAge: 'Âge',
+        hrResting: 'Fréquence cardiaque au repos (bpm)',
+        hrMaxOptional: 'FC maximale (optionnel)',
+        hrMaxNote: 'Laisser vide pour estimer à 220 - âge',
+        hrButton: 'Calculer les zones',
+        hrMaxLabel: 'FC Max:',
+        hrReserveLabel: 'Réserve FC:',
+        hrFormulaNote: 'Calculé avec la formule de Karvonen',
+        hrZone1: 'Zone 1 (Récupération)',
+        hrZone2: 'Zone 2 (Brûle-graisse)',
+        hrZone3: 'Zone 3 (Aérobie)',
+        hrZone4: 'Zone 4 (Seuil)',
+        hrZone5: 'Zone 5 (Max)',
+
         // Common
         labelBarType: 'Type de barre',
         barOlympic: 'Barre olympique',
@@ -131,6 +171,9 @@ const TRANSLATIONS = {
         placeholderYour1RM: 'Entrer votre 1RM',
         placeholderLbs: 'Entrer lbs',
         placeholderKg: 'Entrer kg',
+        placeholderAge: 'Entrer l\'âge',
+        placeholderResting: 'Entrer FC au repos',
+        placeholderMaxHR: 'Entrer FC max ou laisser vide',
 
         // Errors
         errorValidWeight: 'Veuillez entrer un poids valide.',
@@ -141,6 +184,9 @@ const TRANSLATIONS = {
         errorSelectPlate: 'Veuillez sélectionner au moins un poids.',
         errorMinWeight: 'Le poids cible doit être d\'au moins {weight} {unit} (poids de la barre)',
         errorCannotMake: 'Impossible de faire exactement {weight} {unit} avec les poids disponibles.',
+        errorValidAge: 'Veuillez entrer un âge valide (1-120).',
+        errorValidResting: 'Veuillez entrer une FC au repos valide (30-120 bpm).',
+        errorValidMaxHR: 'La FC maximale doit être supérieure à la FC au repos.',
 
         // Formula notes
         noteEpley: 'Formule la plus utilisée, bonne pour les séries modérées.',
@@ -498,6 +544,13 @@ function resetAllTools() {
     // Unit Converter
     document.getElementById('convert-lbs').value = '';
     document.getElementById('convert-kg').value = '';
+
+    // HR Zone Calculator
+    document.getElementById('hr-age').value = '';
+    document.getElementById('hr-resting').value = '';
+    document.getElementById('hr-max').value = '';
+    document.getElementById('hr-result').classList.add('hidden');
+    document.getElementById('hr-error').classList.add('hidden');
 }
 
 // ========== Plate Builder ==========
@@ -836,6 +889,95 @@ kgInput.addEventListener('input', () => {
     } else if (kgInput.value === '') {
         lbsInput.value = '';
     }
+});
+
+// ========== HR Zone Calculator ==========
+const HR_ZONES = [
+    { key: 'hrZone1', minPct: 50, maxPct: 60 },
+    { key: 'hrZone2', minPct: 60, maxPct: 70 },
+    { key: 'hrZone3', minPct: 70, maxPct: 80 },
+    { key: 'hrZone4', minPct: 80, maxPct: 90 },
+    { key: 'hrZone5', minPct: 90, maxPct: 100 }
+];
+
+function calculateKarvonen(maxHR, restingHR, intensityPct) {
+    // Karvonen Formula: Target HR = ((Max HR - Resting HR) × Intensity%) + Resting HR
+    const hrReserve = maxHR - restingHR;
+    return Math.round(hrReserve * (intensityPct / 100) + restingHR);
+}
+
+function calculateHRZones() {
+    const age = parseInt(document.getElementById('hr-age').value);
+    const restingHR = parseInt(document.getElementById('hr-resting').value);
+    const maxHRInput = document.getElementById('hr-max').value;
+
+    const resultDiv = document.getElementById('hr-result');
+    const errorDiv = document.getElementById('hr-error');
+
+    resultDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    // Validation
+    if (isNaN(age) || age < 1 || age > 120) {
+        errorDiv.textContent = t('errorValidAge');
+        errorDiv.classList.remove('hidden');
+        return;
+    }
+
+    if (isNaN(restingHR) || restingHR < 30 || restingHR > 120) {
+        errorDiv.textContent = t('errorValidResting');
+        errorDiv.classList.remove('hidden');
+        return;
+    }
+
+    // Calculate or use provided max HR
+    let maxHR;
+    if (maxHRInput && maxHRInput.trim() !== '') {
+        maxHR = parseInt(maxHRInput);
+        if (maxHR <= restingHR) {
+            errorDiv.textContent = t('errorValidMaxHR');
+            errorDiv.classList.remove('hidden');
+            return;
+        }
+    } else {
+        maxHR = 220 - age;
+    }
+
+    const hrReserve = maxHR - restingHR;
+
+    // Display info
+    document.getElementById('hr-max-display').textContent = `${maxHR} bpm`;
+    document.getElementById('hr-reserve-display').textContent = `${hrReserve} bpm`;
+
+    // Generate zones table
+    const zonesContainer = document.getElementById('hr-zones-table');
+    zonesContainer.innerHTML = HR_ZONES.map(zone => {
+        const minHR = calculateKarvonen(maxHR, restingHR, zone.minPct);
+        const maxHRZone = calculateKarvonen(maxHR, restingHR, zone.maxPct);
+        return `
+            <div class="hr-zone-row">
+                <span class="zone-name">${t(zone.key)}</span>
+                <span class="zone-range">${minHR} - ${maxHRZone} bpm</span>
+                <span class="zone-pct">${zone.minPct}-${zone.maxPct}%</span>
+            </div>
+        `;
+    }).join('');
+
+    resultDiv.classList.remove('hidden');
+}
+
+document.getElementById('calculate-hr-btn').addEventListener('click', calculateHRZones);
+
+document.getElementById('hr-age').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') calculateHRZones();
+});
+
+document.getElementById('hr-resting').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') calculateHRZones();
+});
+
+document.getElementById('hr-max').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') calculateHRZones();
 });
 
 // ========== Initialize Language ==========

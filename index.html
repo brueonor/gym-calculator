@@ -32,6 +32,7 @@
             <li><button class="nav-btn" data-tool="one-rm-calculator" data-i18n="nav1RM">1RM Estimator</button></li>
             <li><button class="nav-btn" data-tool="percentage-chart" data-i18n="navPercentage">Percentage Chart</button></li>
             <li><button class="nav-btn" data-tool="unit-converter" data-i18n="navConverter">Unit Converter</button></li>
+            <li><button class="nav-btn" data-tool="hr-zones" data-i18n="navHRZones">HR Zones</button></li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
@@ -184,6 +185,45 @@
             </div>
 
             <p class="converter-note" data-i18n="converterNote">Type in either field to convert</p>
+        </section>
+
+        <section id="hr-zones" class="tool-section">
+            <h2 data-i18n="hrTitle">HR Zone Calculator</h2>
+
+            <div class="input-group">
+                <label for="hr-age" data-i18n="hrAge">Age</label>
+                <input type="number" id="hr-age" min="1" max="120" step="1" data-i18n-placeholder="placeholderAge">
+            </div>
+
+            <div class="input-group">
+                <label for="hr-resting" data-i18n="hrResting">Resting Heart Rate (bpm)</label>
+                <input type="number" id="hr-resting" min="30" max="120" step="1" data-i18n-placeholder="placeholderResting">
+            </div>
+
+            <div class="input-group">
+                <label for="hr-max" data-i18n="hrMaxOptional">Max Heart Rate (optional)</label>
+                <input type="number" id="hr-max" min="100" max="220" step="1" data-i18n-placeholder="placeholderMaxHR">
+                <p class="input-note" data-i18n="hrMaxNote">Leave blank to estimate as 220 - age</p>
+            </div>
+
+            <button id="calculate-hr-btn" class="calculate-btn" data-i18n="hrButton">Calculate Zones</button>
+
+            <div id="hr-result" class="result hidden">
+                <div class="hr-info">
+                    <div class="hr-info-row">
+                        <span class="label" data-i18n="hrMaxLabel">Max HR:</span>
+                        <span id="hr-max-display">0 bpm</span>
+                    </div>
+                    <div class="hr-info-row">
+                        <span class="label" data-i18n="hrReserveLabel">HR Reserve:</span>
+                        <span id="hr-reserve-display">0 bpm</span>
+                    </div>
+                </div>
+                <div id="hr-zones-table" class="hr-zones-table"></div>
+                <p class="hr-formula-note" data-i18n="hrFormulaNote">Calculated using the Karvonen Formula</p>
+            </div>
+
+            <div id="hr-error" class="error hidden"></div>
         </section>
     </div>
 

@@ -13,7 +13,7 @@ Open `index.html` directly in a browser to test. No build step or server require
 ## Architecture
 
 - **index.html**: Single-page app with navigation tabs for different tools
-- **styles.css**: Dark theme with CSS variables, mobile-responsive
+- **styles.css**: Dark theme with responsive breakpoints for mobile/tablet/desktop
 - **script.js**: Tool logic with modular functions per calculator
 
 ### Adding New Tools
@@ -21,10 +21,11 @@ Open `index.html` directly in a browser to test. No build step or server require
 1. Add a nav button in `.nav-list` inside the sidebar with `data-tool="tool-id"`
 2. Add a `<section id="tool-id" class="tool-section">` inside `.container`
 3. Add tool logic in `script.js` - navigation and menu close are already wired up
+4. Add translations for the tool name and any UI text in `TRANSLATIONS` object
 
 ### Current Tools
 
-**Plate Calculator**: Input target weight, calculates plates needed per side using greedy algorithm. Users can select which plates are available at their gym.
+**Plate Calculator**: Input target weight, calculates plates needed per side using greedy algorithm. Users can select which plates are available at their gym via colored checkboxes.
 
 **Plate Builder**: Click plate buttons to add weight to the bar. Shows running total and visual representation. Click plate tags to remove plates.
 
@@ -33,6 +34,8 @@ Open `index.html` directly in a browser to test. No build step or server require
 **Percentage Chart**: Shows weights at different percentages of 1RM (100% down to 30% in 5% increments).
 
 **Unit Converter**: Real-time conversion between lbs and kg.
+
+**HR Zone Calculator**: Calculates heart rate training zones using the Karvonen Formula. Takes age and resting heart rate as inputs, with optional max heart rate override (defaults to 220 - age). Displays 5 zones from recovery (50-60%) to max effort (90-100%).
 
 ## Unit Support
 
@@ -44,6 +47,32 @@ Plate colors (competition standard): 55/25kg=red, 45/20kg=blue, 35/15kg=yellow, 
 
 Bar weights: 45/35 lbs or 20/15 kg (Olympic/Women's)
 
+## Color Palette
+
+Dark theme using these colors:
+- `#1a1518` - Main background (darkest)
+- `#252025` - Tool sections/cards (dark purple-gray)
+- `#2d2d2d` - Header, sidebar, plate tags
+- `#463e4b` - Borders, accents, active button states
+- `#202222` - Input fields, toggles, result areas
+- `#e0e0e0` - Primary text
+- `#8a8a8a` - Secondary text/labels
+- `#6a6a6a` - Placeholder text
+
+## Responsive Design
+
+Fully responsive with breakpoints:
+- **Large Desktop (1200px+)**: Wider container (600px), more padding
+- **Desktop (1024px - 1199px)**: Standard layout (550px container)
+- **Tablet (768px - 1023px)**: Adjusted sidebar width (300px)
+- **Small Tablet (481px - 767px)**: Compact header, smaller spacing
+- **Mobile (480px and below)**: Full-width sidebar, stacked converter inputs, scaled barbell visual
+- **Extra small mobile (320px and below)**: Ultra-compact layout
+
+Additional responsive features:
+- Touch device optimizations (active states instead of hover)
+- Landscape mobile support (compact header)
+
 ## Internationalization (i18n)
 
 Supports English and French. Language toggle in header. Default language detected from browser (`navigator.language`).
@@ -54,6 +83,17 @@ Supports English and French. Language toggle in header. Default language detecte
 - Call `t('key')` in JavaScript for translated strings
 - Dynamic elements (bar selects, error messages) use `t()` function
 
+## Key Functions in script.js
+
+- `setLanguage(lang)` - Switch language and update all UI text
+- `resetAllTools()` - Clear all inputs when switching tools
+- `calculatePlates(weight, plates)` - Greedy algorithm for plate calculation
+- `renderBarbellVisual(plates, containerId, unit)` - Draw barbell with colored plates
+- `calculate1RM(weight, reps, formula)` - 1RM estimation with multiple formulas
+- `calculateKarvonen(maxHR, restingHR, intensityPct)` - Karvonen formula for target HR
+
 ## Constraints
 
 - No npm, no bundlers, no frameworks - must work as static files on GitHub Pages
+- All styles in single CSS file, all logic in single JS file
+- Plate CSS classes use unit prefix to avoid conflicts (e.g., `.plate-lbs-45`, `.plate-kg-20`)
