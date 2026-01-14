@@ -609,8 +609,21 @@ h2 {
     border-bottom: none;
 }
 
+.percentage-row:nth-child(even) {
+    background: rgba(70, 62, 75, 0.15);
+}
+
 .percentage-row.highlight {
     background: rgba(70, 62, 75, 0.3);
+}
+
+.percentage-row.clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.percentage-row.clickable:hover {
+    background: rgba(70, 62, 75, 0.4);
 }
 
 .percentage-label {

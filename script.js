@@ -810,19 +810,73 @@ document.getElementById('rm-reps').addEventListener('keypress', (e) => {
 // ========== Percentage Chart ==========
 const PERCENTAGES = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30];
 
-function generatePercentageTable(oneRM, containerId, unit) {
+function generatePercentageTable(oneRM, containerId, unit, clickable = false) {
     const container = document.getElementById(containerId);
 
     container.innerHTML = PERCENTAGES.map(pct => {
         const weight = Math.round(oneRM * pct / 100 * 10) / 10;
         const highlight = pct === 100 ? ' highlight' : '';
+        const clickableClass = clickable ? ' clickable' : '';
         return `
-            <div class="percentage-row${highlight}">
+            <div class="percentage-row${highlight}${clickableClass}" data-weight="${weight}" data-unit="${unit}">
                 <span class="percentage-label">${pct}%</span>
                 <span class="percentage-weight">${weight} ${unit}</span>
             </div>
         `;
     }).join('');
+
+    if (clickable) {
+        container.querySelectorAll('.percentage-row.clickable').forEach(row => {
+            row.addEventListener('click', () => {
+                const weight = parseFloat(row.dataset.weight);
+                const rowUnit = row.dataset.unit;
+                navigateToPlateCalculator(weight, rowUnit);
+            });
+        });
+    }
+}
+
+function navigateToPlateCalculator(weight, unit) {
+    // Calculate nearest achievable weight
+    // Minimum increment is 5 lbs (2×2.5) or 2.5 kg (2×1.25)
+    const increment = unit === 'lbs' ? 5 : 2.5;
+    const barWeight = unit === 'lbs' ? 45 : 20;
+
+    // Round to nearest increment
+    let nearestWeight = Math.round(weight / increment) * increment;
+
+    // Ensure weight is at least bar weight
+    if (nearestWeight < barWeight) {
+        nearestWeight = barWeight;
+    }
+
+    // Switch unit if needed
+    if (unitState.calculator !== unit) {
+        unitState.calculator = unit;
+        document.querySelectorAll('#plate-calculator .unit-toggle .unit-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.unit === unit);
+        });
+        renderCalcPlateCheckboxes();
+        updateCalcBarSelect();
+        updateCalcUnitLabels();
+    }
+
+    // Set the target weight
+    document.getElementById('target-weight').value = nearestWeight;
+
+    // Navigate to plate calculator
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelector('.nav-btn[data-tool="plate-calculator"]').classList.add('active');
+    document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('plate-calculator').classList.add('active');
+
+    // Close sidebar if open
+    if (sidebar.classList.contains('open')) {
+        toggleMenu();
+    }
+
+    // Trigger calculation
+    handleCalculate();
 }
 
 // Toggle percentages in 1RM Estimator
@@ -831,7 +885,7 @@ document.getElementById('toggle-rm-percentages').addEventListener('click', () =>
     const btn = document.getElementById('toggle-rm-percentages');
 
     if (container.classList.contains('hidden')) {
-        generatePercentageTable(currentRMValue, 'rm-percentages', unitState.rm);
+        generatePercentageTable(currentRMValue, 'rm-percentages', unitState.rm, true);
         container.classList.remove('hidden');
         btn.textContent = t('rmHidePercentages');
     } else {
@@ -856,7 +910,7 @@ function generateChart() {
         return;
     }
 
-    generatePercentageTable(oneRM, 'chart-percentages', unit);
+    generatePercentageTable(oneRM, 'chart-percentages', unit, true);
     resultDiv.classList.remove('hidden');
 }
 
