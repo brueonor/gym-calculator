@@ -333,6 +333,17 @@ function renderCalcPlateCheckboxes() {
             <span>${p}</span>
         </label>
     `).join('');
+
+    // Add change listeners for auto-recalculation
+    container.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const targetWeight = parseFloat(document.getElementById('target-weight').value);
+            // Only recalculate if there's a valid weight and result is visible
+            if (!isNaN(targetWeight) && targetWeight > 0) {
+                handleCalculate();
+            }
+        });
+    });
 }
 
 function updateCalcBarSelect() {
@@ -503,6 +514,14 @@ document.getElementById('target-weight').addEventListener('keypress', (e) => {
 // Initialize Plate Calculator
 renderCalcPlateCheckboxes();
 updateCalcBarSelect();
+
+// Auto-recalculate when bar type changes
+document.getElementById('bar-type').addEventListener('change', () => {
+    const targetWeight = parseFloat(document.getElementById('target-weight').value);
+    if (!isNaN(targetWeight) && targetWeight > 0) {
+        handleCalculate();
+    }
+});
 
 // ========== Hamburger Menu ==========
 const menuToggle = document.getElementById('menu-toggle');
