@@ -51,15 +51,17 @@ Bar weights: 45/35 lbs or 20/15 kg (Olympic/Women's)
 
 ## Color Palette
 
-Dark theme using these colors:
-- `#1a1518` - Main background (darkest)
-- `#252025` - Tool sections/cards (dark purple-gray)
-- `#2d2d2d` - Header, sidebar, plate tags
-- `#463e4b` - Borders, accents, active button states
-- `#202222` - Input fields, toggles, result areas
-- `#e0e0e0` - Primary text
-- `#8a8a8a` - Secondary text/labels
-- `#6a6a6a` - Placeholder text
+Modern neutral dark theme using pure grayscale colors:
+- `#0a0a0a` - Main background (near black)
+- `#161616` - Tool sections/cards
+- `#141414` - Header, sidebar
+- `#1e1e1e` - Plate tags, hover states
+- `#2a2a2a` - Borders, active button states
+- `#111111` - Input fields, toggles, result areas
+- `#444444` - Focus/hover border states
+- `#e8e8e8` - Primary text
+- `#888888` - Secondary text/labels
+- `#555555` - Placeholder text, muted text
 
 ## Responsive Design
 
