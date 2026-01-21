@@ -538,23 +538,47 @@ menuToggle.addEventListener('click', toggleMenu);
 overlay.addEventListener('click', toggleMenu);
 
 // Navigation
+function showTool(toolId, pushState = true) {
+    // Update nav buttons
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`.nav-btn[data-tool="${toolId}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+
+    // Update tool sections
+    document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+    const toolSection = document.getElementById(toolId);
+    if (toolSection) toolSection.classList.add('active');
+
+    // Reset all inputs and results
+    resetAllTools();
+
+    // Close sidebar if open
+    if (sidebar.classList.contains('open')) {
+        toggleMenu();
+    }
+
+    // Update URL hash and history
+    if (pushState && window.location.hash !== `#${toolId}`) {
+        history.pushState({ tool: toolId }, '', `#${toolId}`);
+    }
+}
+
 document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        const toolId = btn.dataset.tool;
-
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
-        document.getElementById(toolId).classList.add('active');
-
-        // Reset all inputs and results
-        resetAllTools();
-
-        if (sidebar.classList.contains('open')) {
-            toggleMenu();
-        }
+        showTool(btn.dataset.tool);
     });
+});
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.tool) {
+        showTool(event.state.tool, false);
+    } else {
+        // Check for hash in URL, fallback to default tool
+        const hash = window.location.hash.slice(1);
+        const toolId = hash || 'plate-calculator';
+        showTool(toolId, false);
+    }
 });
 
 function resetAllTools() {
@@ -889,6 +913,11 @@ function navigateToPlateCalculator(weight, unit) {
     document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
     document.getElementById('plate-calculator').classList.add('active');
 
+    // Update history
+    if (window.location.hash !== '#plate-calculator') {
+        history.pushState({ tool: 'plate-calculator' }, '', '#plate-calculator');
+    }
+
     // Close sidebar if open
     if (sidebar.classList.contains('open')) {
         toggleMenu();
@@ -1222,3 +1251,20 @@ document.querySelectorAll('.quick-time-btn').forEach(btn => {
 
 // ========== Initialize Language ==========
 setLanguage(detectBrowserLanguage());
+
+// ========== Initialize Navigation from URL Hash ==========
+(function initNavFromHash() {
+    const hash = window.location.hash.slice(1);
+    const defaultTool = 'plate-calculator';
+    const toolId = hash || defaultTool;
+
+    // Check if the tool exists
+    const toolSection = document.getElementById(toolId);
+    if (toolSection && toolSection.classList.contains('tool-section')) {
+        showTool(toolId, false);
+    }
+
+    // Set initial history state (replaceState to not add extra entry)
+    const currentTool = hash || defaultTool;
+    history.replaceState({ tool: currentTool }, '', `#${currentTool}`);
+})();
