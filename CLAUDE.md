@@ -10,6 +10,12 @@ A static gym calculator web app hosted on GitHub Pages. Pure HTML/CSS/JavaScript
 
 Open `index.html` directly in a browser to test. No build step or server required.
 
+## Deployment
+
+When deploying changes to GitHub Pages, bump the version query string in `index.html` to bust browser cache:
+- `styles.css?v=1.0.0` → `styles.css?v=1.0.1`
+- `script.js?v=1.0.0` → `script.js?v=1.0.1`
+
 ## Architecture
 
 - **index.html**: Single-page app with navigation tabs for different tools
