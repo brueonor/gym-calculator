@@ -102,6 +102,7 @@ const TRANSLATIONS = {
         cfCountUp: 'Count Up',
         cfTimeCap: 'Time Cap',
         cfNoCap: 'No cap',
+        cfStartIn: 'Start in',
 
         // Common
         labelBarType: 'Bar Type',
@@ -239,6 +240,7 @@ const TRANSLATIONS = {
         cfCountUp: 'Chronomètre',
         cfTimeCap: 'Temps limite',
         cfNoCap: 'Sans limite',
+        cfStartIn: 'Départ dans',
 
         // Common
         labelBarType: 'Type de barre',
@@ -1328,6 +1330,8 @@ let cfPhase = 'work'; // 'work', 'rest', 'complete'
 let cfPhaseSeconds = 0;
 let cfCapSeconds = 0;
 let cfTimerDirection = 'down'; // 'down' for countdown, 'up' for count up
+let cfStartCountdown = 5; // seconds before workout starts (0, 3, 5, or 10)
+let cfInStartCountdown = false; // true during the initial countdown phase
 
 function formatTime(totalSeconds) {
     const mins = Math.floor(totalSeconds / 60);
@@ -1371,6 +1375,15 @@ function updateCrossfitDisplay() {
     // Clear all state classes
     displayEl.classList.remove('running', 'rest-phase', 'warning', 'complete');
     phaseEl.classList.remove('work', 'rest', 'complete', 'ready');
+
+    // Handle start countdown phase
+    if (cfInStartCountdown) {
+        timeEl.textContent = cfCurrentSeconds.toString();
+        phaseEl.textContent = t('cfGetReady');
+        phaseEl.classList.add('ready');
+        roundEl.textContent = '';
+        return;
+    }
 
     if (!cfRunning && !cfPaused) {
         // Initial state - show configured time
@@ -1513,61 +1526,96 @@ function playCrossfitBeep(type) {
     }
 }
 
-function startCrossfitTimer() {
-    if (cfRunning) return;
+function initWorkoutSettings() {
+    // Initialize based on mode
+    cfCurrentRound = 1;
+    cfPhase = 'work';
 
-    if (!cfPaused) {
-        // Fresh start - initialize based on mode
-        cfCurrentRound = 1;
-        cfPhase = 'work';
+    switch (cfMode) {
+        case 'emom':
+            cfIntervalMinutes = parseInt(document.getElementById('cf-emom-interval').value) || 1;
+            cfTotalSeconds = (parseInt(document.getElementById('cf-emom-duration').value) || 10) * 60;
+            cfTotalRounds = Math.floor(cfTotalSeconds / (cfIntervalMinutes * 60));
+            cfPhaseSeconds = cfIntervalMinutes * 60;
+            cfCurrentSeconds = cfTotalSeconds;
+            break;
 
-        switch (cfMode) {
-            case 'emom':
-                cfIntervalMinutes = parseInt(document.getElementById('cf-emom-interval').value) || 1;
-                cfTotalSeconds = (parseInt(document.getElementById('cf-emom-duration').value) || 10) * 60;
-                cfTotalRounds = Math.floor(cfTotalSeconds / (cfIntervalMinutes * 60));
-                cfPhaseSeconds = cfIntervalMinutes * 60;
+        case 'timer':
+            if (cfTimerDirection === 'down') {
+                cfTotalSeconds = (parseInt(document.getElementById('cf-timer-duration').value) || 12) * 60;
                 cfCurrentSeconds = cfTotalSeconds;
-                break;
+            } else {
+                cfCapSeconds = (parseInt(document.getElementById('cf-timer-cap').value) || 0) * 60;
+                cfCurrentSeconds = 0;
+            }
+            break;
 
-            case 'timer':
-                if (cfTimerDirection === 'down') {
-                    cfTotalSeconds = (parseInt(document.getElementById('cf-timer-duration').value) || 12) * 60;
-                    cfCurrentSeconds = cfTotalSeconds;
-                } else {
-                    cfCapSeconds = (parseInt(document.getElementById('cf-timer-cap').value) || 0) * 60;
-                    cfCurrentSeconds = 0;
-                }
-                break;
+        case 'tabata':
+            cfWorkSeconds = 20;
+            cfRestSeconds = 10;
+            cfTotalRounds = 8;
+            cfPhaseSeconds = cfWorkSeconds;
+            break;
 
-            case 'tabata':
-                cfWorkSeconds = 20;
-                cfRestSeconds = 10;
-                cfTotalRounds = 8;
-                cfPhaseSeconds = cfWorkSeconds;
-                break;
-
-            case 'intervals':
-                cfWorkSeconds = parseInt(document.getElementById('cf-intervals-work').value) || 40;
-                const restVal = parseInt(document.getElementById('cf-intervals-rest').value);
-                cfRestSeconds = isNaN(restVal) ? 20 : restVal;
-                cfTotalRounds = parseInt(document.getElementById('cf-intervals-rounds').value) || 8;
-                cfPhaseSeconds = cfWorkSeconds;
-                break;
-        }
-
-        // Play start beep
-        playCrossfitBeep('work');
+        case 'intervals':
+            cfWorkSeconds = parseInt(document.getElementById('cf-intervals-work').value) || 40;
+            const restVal = parseInt(document.getElementById('cf-intervals-rest').value);
+            cfRestSeconds = isNaN(restVal) ? 20 : restVal;
+            cfTotalRounds = parseInt(document.getElementById('cf-intervals-rounds').value) || 8;
+            cfPhaseSeconds = cfWorkSeconds;
+            break;
     }
+}
 
-    cfRunning = true;
-    cfPaused = false;
+function startCrossfitTimer() {
+    if (cfRunning || cfInStartCountdown) return;
 
     // Update button states
     document.getElementById('cf-start-btn').classList.add('hidden');
     document.getElementById('cf-pause-btn').classList.remove('hidden');
     document.getElementById('cf-pause-btn').textContent = t('cfPause');
 
+    if (!cfPaused) {
+        // Fresh start - check if we need initial countdown
+        if (cfStartCountdown > 0) {
+            // Start with countdown
+            cfInStartCountdown = true;
+            cfCurrentSeconds = cfStartCountdown;
+            updateCrossfitDisplay();
+            playCrossfitBeep('countdown');
+
+            cfInterval = setInterval(() => {
+                cfCurrentSeconds--;
+
+                if (cfCurrentSeconds > 0) {
+                    playCrossfitBeep('countdown');
+                    updateCrossfitDisplay();
+                } else {
+                    // Countdown finished, start actual workout
+                    clearInterval(cfInterval);
+                    cfInStartCountdown = false;
+                    initWorkoutSettings();
+                    playCrossfitBeep('work');
+                    cfRunning = true;
+                    startWorkoutInterval();
+                    updateCrossfitDisplay();
+                }
+            }, 1000);
+            return;
+        }
+
+        // No countdown, start directly
+        initWorkoutSettings();
+        playCrossfitBeep('work');
+    }
+
+    cfRunning = true;
+    cfPaused = false;
+    startWorkoutInterval();
+    updateCrossfitDisplay();
+}
+
+function startWorkoutInterval() {
     cfInterval = setInterval(() => {
         switch (cfMode) {
             case 'emom':
@@ -1686,7 +1734,15 @@ function startCrossfitTimer() {
 }
 
 function pauseCrossfitTimer() {
-    if (cfRunning) {
+    if (cfInStartCountdown) {
+        // Cancel start countdown
+        clearInterval(cfInterval);
+        cfInterval = null;
+        cfInStartCountdown = false;
+        document.getElementById('cf-start-btn').classList.remove('hidden');
+        document.getElementById('cf-pause-btn').classList.add('hidden');
+        updateCrossfitDisplay();
+    } else if (cfRunning) {
         clearInterval(cfInterval);
         cfInterval = null;
         cfRunning = false;
@@ -1703,6 +1759,7 @@ function resetCrossfitTimer() {
     cfInterval = null;
     cfRunning = false;
     cfPaused = false;
+    cfInStartCountdown = false;
     cfCurrentRound = 1;
     cfPhase = 'work';
     cfPhaseSeconds = 0;
@@ -1716,10 +1773,22 @@ function resetCrossfitTimer() {
     updateCrossfitDisplay();
 }
 
-// CrossFit Timer event listeners
+// Workout Timer event listeners
 document.querySelectorAll('.cf-mode-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         setCrossfitMode(btn.dataset.mode);
+    });
+});
+
+// Start countdown selector
+document.querySelectorAll('.cf-countdown-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const countdown = parseInt(btn.dataset.countdown);
+        cfStartCountdown = countdown;
+
+        // Update toggle buttons
+        document.querySelectorAll('.cf-countdown-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     });
 });
 

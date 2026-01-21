@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Calculator</title>
-    <link rel="stylesheet" href="styles.css?v=1.2.2">
+    <link rel="stylesheet" href="styles.css?v=1.3.0">
 </head>
 <body>
     <header class="header">
@@ -273,6 +273,17 @@
                 <button class="cf-mode-btn" data-mode="intervals" data-i18n="cfModeIntervals">Intervals</button>
             </div>
 
+            <!-- Start Countdown Selector -->
+            <div class="cf-start-countdown">
+                <span data-i18n="cfStartIn">Start in</span>
+                <div class="cf-countdown-options">
+                    <button class="cf-countdown-btn" data-countdown="0">0s</button>
+                    <button class="cf-countdown-btn" data-countdown="3">3s</button>
+                    <button class="cf-countdown-btn active" data-countdown="5">5s</button>
+                    <button class="cf-countdown-btn" data-countdown="10">10s</button>
+                </div>
+            </div>
+
             <!-- Timer Display -->
             <div class="cf-display" id="cf-display">
                 <div class="cf-phase" id="cf-phase"></div>
@@ -381,6 +392,6 @@
         </section>
     </div>
 
-    <script src="script.js?v=1.2.2"></script>
+    <script src="script.js?v=1.3.0"></script>
 </body>
 </html>
