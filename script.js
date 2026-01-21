@@ -1549,7 +1549,8 @@ function startCrossfitTimer() {
 
             case 'intervals':
                 cfWorkSeconds = parseInt(document.getElementById('cf-intervals-work').value) || 40;
-                cfRestSeconds = parseInt(document.getElementById('cf-intervals-rest').value) || 20;
+                const restVal = parseInt(document.getElementById('cf-intervals-rest').value);
+                cfRestSeconds = isNaN(restVal) ? 20 : restVal;
                 cfTotalRounds = parseInt(document.getElementById('cf-intervals-rounds').value) || 8;
                 cfPhaseSeconds = cfWorkSeconds;
                 break;
@@ -1635,10 +1636,27 @@ function startCrossfitTimer() {
 
                 if (cfPhaseSeconds <= 0) {
                     if (cfPhase === 'work') {
-                        // Switch to rest
-                        cfPhase = 'rest';
-                        cfPhaseSeconds = cfRestSeconds;
-                        playCrossfitBeep('rest');
+                        // Work finished - check if we have rest or go to next round
+                        if (cfRestSeconds > 0) {
+                            // Switch to rest
+                            cfPhase = 'rest';
+                            cfPhaseSeconds = cfRestSeconds;
+                            playCrossfitBeep('rest');
+                        } else {
+                            // No rest - go directly to next round or complete
+                            if (cfCurrentRound >= cfTotalRounds) {
+                                clearInterval(cfInterval);
+                                cfInterval = null;
+                                cfRunning = false;
+                                showComplete();
+                                document.getElementById('cf-start-btn').classList.remove('hidden');
+                                document.getElementById('cf-pause-btn').classList.add('hidden');
+                            } else {
+                                cfCurrentRound++;
+                                cfPhaseSeconds = cfWorkSeconds;
+                                playCrossfitBeep('work');
+                            }
+                        }
                     } else {
                         // Rest finished
                         if (cfCurrentRound >= cfTotalRounds) {
