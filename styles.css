@@ -908,6 +908,254 @@ h2 {
     color: #fff;
 }
 
+/* CrossFit Timer */
+.cf-mode-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.cf-mode-btn {
+    padding: 10px 16px;
+    border: 2px solid #3d3d3d;
+    background: #1e1e1e;
+    color: #888888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cf-mode-btn:hover {
+    border-color: #555555;
+    color: #f0f0f0;
+}
+
+.cf-mode-btn.active {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.cf-display {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 25px 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.cf-phase {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    min-height: 1.6em;
+}
+
+.cf-phase.work {
+    color: #22c55e;
+}
+
+.cf-phase.rest {
+    color: #f59e0b;
+}
+
+.cf-phase.complete {
+    color: #dc2626;
+}
+
+.cf-phase.ready {
+    color: #3b82f6;
+}
+
+.cf-time {
+    font-size: 5rem;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    color: #f0f0f0;
+    letter-spacing: 0.05em;
+    line-height: 1;
+}
+
+.cf-round {
+    font-size: 1.1rem;
+    color: #888888;
+    margin-top: 10px;
+    min-height: 1.4em;
+}
+
+.cf-display.running .cf-time {
+    color: #22c55e;
+}
+
+.cf-display.running.rest-phase .cf-time {
+    color: #f59e0b;
+}
+
+.cf-display.warning .cf-time {
+    color: #f59e0b;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.cf-display.complete {
+    animation: flash 0.5s ease-in-out 3;
+}
+
+.cf-display.complete .cf-time {
+    color: #dc2626;
+}
+
+.cf-settings {
+    margin-bottom: 20px;
+}
+
+.cf-setting-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.cf-setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.cf-setting-group label {
+    font-size: 0.85rem;
+    color: #888888;
+}
+
+.cf-setting-group select,
+.cf-setting-group input {
+    padding: 12px;
+    border: 2px solid #3d3d3d;
+    border-radius: 8px;
+    background: #1e1e1e;
+    color: #f0f0f0;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.cf-setting-group select {
+    min-width: 100px;
+    cursor: pointer;
+}
+
+.cf-setting-group select:focus,
+.cf-setting-group input:focus {
+    outline: none;
+    border-color: #5a5a5a;
+}
+
+.cf-duration-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cf-duration-input input {
+    width: 70px;
+}
+
+.cf-duration-input span {
+    color: #888888;
+    font-size: 0.9rem;
+}
+
+.cf-rounds-input {
+    width: 70px;
+}
+
+.cf-tabata-info {
+    text-align: center;
+    color: #888888;
+    font-size: 1rem;
+    padding: 15px;
+    background: #161616;
+    border-radius: 8px;
+}
+
+.cf-direction-toggle {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.cf-direction-btn {
+    padding: 10px 20px;
+    border: 2px solid #3d3d3d;
+    background: #1e1e1e;
+    color: #888888;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cf-direction-btn:hover {
+    border-color: #555555;
+    color: #f0f0f0;
+}
+
+.cf-direction-btn.active {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+}
+
+.cf-cap-note {
+    font-size: 0.8rem;
+    color: #666666;
+    margin-top: 4px;
+}
+
+.cf-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.cf-preset-btn {
+    padding: 10px 16px;
+    border: 2px solid #3d3d3d;
+    background: #1e1e1e;
+    color: #f0f0f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.cf-preset-btn:hover {
+    border-color: #22c55e;
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.cf-preset-btn:active {
+    transform: scale(0.95);
+}
+
+.cf-controls {
+    display: flex;
+    gap: 15px;
+}
+
 /* ===========================================
    RESPONSIVE STYLES
    =========================================== */
@@ -1310,6 +1558,62 @@ h2 {
     .timer-btn {
         padding: 12px;
         font-size: 1rem;
+    }
+
+    /* CrossFit Timer mobile */
+    .cf-mode-selector {
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .cf-mode-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+
+    .cf-display {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+
+    .cf-phase {
+        font-size: 1.2rem;
+    }
+
+    .cf-time {
+        font-size: 3.5rem;
+    }
+
+    .cf-round {
+        font-size: 1rem;
+    }
+
+    .cf-setting-row {
+        gap: 15px;
+    }
+
+    .cf-setting-group select,
+    .cf-setting-group input {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .cf-duration-input input {
+        width: 60px;
+    }
+
+    .cf-presets {
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .cf-preset-btn {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    .cf-controls {
+        gap: 10px;
     }
 }
 

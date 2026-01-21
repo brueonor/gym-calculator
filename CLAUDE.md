@@ -45,6 +45,14 @@ When deploying changes to GitHub Pages, bump the version query string in `index.
 
 **Rest Timer**: Countdown timer for rest periods between sets. Manual input for minutes/seconds plus quick-add buttons (+30s, +1min, +90s, +3min, +5min). Features start/pause/reset controls, visual feedback (green when running, orange warning at 10s, red flash when done), and audio alert beeps on completion.
 
+**Workout Timer**: Multi-mode timer for various workout styles with 4 modes:
+- **EMOM**: Every Minute On the Minute. Configurable interval (1-5 min) and total duration. Beeps at each interval start.
+- **Timer**: Simple countdown or count-up timer. Toggle between countdown (with duration) and count-up (stopwatch with optional time cap). Presets for common durations.
+- **Tabata**: Classic 20s work / 10s rest for 8 rounds.
+- **Intervals**: Custom work/rest timer with configurable work time, rest time, and number of rounds.
+
+Features distinct audio cues (high beep for work, double beep for rest, countdown beeps at 3-2-1), phase indicators (green for work, orange for rest), and round tracking.
+
 ## Unit Support
 
 All tools (except Unit Converter) have a lbs/kg toggle. Plate tools use standard plate sets:

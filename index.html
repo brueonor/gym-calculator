@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Calculator</title>
-    <link rel="stylesheet" href="styles.css?v=1.0.0">
+    <link rel="stylesheet" href="styles.css?v=1.2.1">
 </head>
 <body>
     <header class="header">
@@ -34,6 +34,7 @@
             <li><button class="nav-btn" data-tool="unit-converter" data-i18n="navConverter">Unit Converter</button></li>
             <li><button class="nav-btn" data-tool="hr-zones" data-i18n="navHRZones">HR Zones</button></li>
             <li><button class="nav-btn" data-tool="rest-timer" data-i18n="navRestTimer">Rest Timer</button></li>
+            <li><button class="nav-btn" data-tool="workout-timer" data-i18n="navCFTimer">Workout Timer</button></li>
         </ul>
     </nav>
     <div class="overlay" id="overlay"></div>
@@ -260,8 +261,126 @@
                 <button id="timer-reset-btn" class="timer-btn timer-reset" data-i18n="timerReset">Reset</button>
             </div>
         </section>
+
+        <section id="workout-timer" class="tool-section">
+            <h2 data-i18n="cfTimerTitle">Workout Timer</h2>
+
+            <!-- Mode Selector -->
+            <div class="cf-mode-selector">
+                <button class="cf-mode-btn active" data-mode="emom" data-i18n="cfModeEmom">EMOM</button>
+                <button class="cf-mode-btn" data-mode="timer" data-i18n="cfModeTimer">Timer</button>
+                <button class="cf-mode-btn" data-mode="tabata" data-i18n="cfModeTabata">Tabata</button>
+                <button class="cf-mode-btn" data-mode="intervals" data-i18n="cfModeIntervals">Intervals</button>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="cf-display" id="cf-display">
+                <div class="cf-phase" id="cf-phase"></div>
+                <div class="cf-time" id="cf-time">00:00</div>
+                <div class="cf-round" id="cf-round"></div>
+            </div>
+
+            <!-- EMOM Settings -->
+            <div class="cf-settings" id="cf-settings-emom">
+                <div class="cf-setting-row">
+                    <div class="cf-setting-group">
+                        <label data-i18n="cfInterval">Every</label>
+                        <select id="cf-emom-interval">
+                            <option value="1">1 min</option>
+                            <option value="2">2 min</option>
+                            <option value="3">3 min</option>
+                            <option value="4">4 min</option>
+                            <option value="5">5 min</option>
+                        </select>
+                    </div>
+                    <div class="cf-setting-group">
+                        <label data-i18n="cfDuration">Duration</label>
+                        <div class="cf-duration-input">
+                            <input type="number" id="cf-emom-duration" min="1" max="60" value="10">
+                            <span data-i18n="cfMinutes">min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Settings (merged AMRAP + For Time) -->
+            <div class="cf-settings hidden" id="cf-settings-timer">
+                <div class="cf-direction-toggle">
+                    <button class="cf-direction-btn active" data-direction="down" data-i18n="cfCountdown">Countdown</button>
+                    <button class="cf-direction-btn" data-direction="up" data-i18n="cfCountUp">Count Up</button>
+                </div>
+                <div class="cf-setting-row">
+                    <div class="cf-setting-group" id="cf-timer-duration-group">
+                        <label data-i18n="cfDuration">Duration</label>
+                        <div class="cf-duration-input">
+                            <input type="number" id="cf-timer-duration" min="1" max="60" value="12">
+                            <span data-i18n="cfMinutes">min</span>
+                        </div>
+                    </div>
+                    <div class="cf-setting-group hidden" id="cf-timer-cap-group">
+                        <label data-i18n="cfTimeCap">Time Cap</label>
+                        <div class="cf-duration-input">
+                            <input type="number" id="cf-timer-cap" min="0" max="60" value="0">
+                            <span data-i18n="cfMinutes">min</span>
+                        </div>
+                        <span class="cf-cap-note" data-i18n="cfNoCap">No cap</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabata Settings (info only) -->
+            <div class="cf-settings hidden" id="cf-settings-tabata">
+                <div class="cf-tabata-info" data-i18n="cfTabataInfo">20s work / 10s rest / 8 rounds</div>
+            </div>
+
+            <!-- Intervals Settings -->
+            <div class="cf-settings hidden" id="cf-settings-intervals">
+                <div class="cf-setting-row">
+                    <div class="cf-setting-group">
+                        <label data-i18n="cfWorkTime">Work</label>
+                        <div class="cf-duration-input">
+                            <input type="number" id="cf-intervals-work" min="5" max="300" value="40">
+                            <span data-i18n="cfSeconds">sec</span>
+                        </div>
+                    </div>
+                    <div class="cf-setting-group">
+                        <label data-i18n="cfRestTime">Rest</label>
+                        <div class="cf-duration-input">
+                            <input type="number" id="cf-intervals-rest" min="5" max="300" value="20">
+                            <span data-i18n="cfSeconds">sec</span>
+                        </div>
+                    </div>
+                    <div class="cf-setting-group">
+                        <label data-i18n="cfRounds">Rounds</label>
+                        <input type="number" id="cf-intervals-rounds" min="1" max="50" value="8" class="cf-rounds-input">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="cf-presets" id="cf-presets-emom">
+                <button class="cf-preset-btn" data-duration="10">10 min</button>
+                <button class="cf-preset-btn" data-duration="12">12 min</button>
+                <button class="cf-preset-btn" data-duration="15">15 min</button>
+                <button class="cf-preset-btn" data-duration="20">20 min</button>
+            </div>
+
+            <div class="cf-presets hidden" id="cf-presets-timer">
+                <button class="cf-preset-btn" data-duration="5">5 min</button>
+                <button class="cf-preset-btn" data-duration="10">10 min</button>
+                <button class="cf-preset-btn" data-duration="15">15 min</button>
+                <button class="cf-preset-btn" data-duration="20">20 min</button>
+            </div>
+
+            <!-- Controls -->
+            <div class="cf-controls">
+                <button id="cf-start-btn" class="timer-btn timer-start" data-i18n="cfStart">Start</button>
+                <button id="cf-pause-btn" class="timer-btn timer-pause hidden" data-i18n="cfPause">Pause</button>
+                <button id="cf-reset-btn" class="timer-btn timer-reset" data-i18n="cfReset">Reset</button>
+            </div>
+        </section>
     </div>
 
-    <script src="script.js?v=1.0.0"></script>
+    <script src="script.js?v=1.2.1"></script>
 </body>
 </html>
