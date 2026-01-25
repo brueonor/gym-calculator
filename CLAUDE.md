@@ -13,21 +13,41 @@ Open `index.html` directly in a browser to test. No build step or server require
 ## Deployment
 
 When deploying changes to GitHub Pages, bump the version query string in `index.html` to bust browser cache:
-- `styles.css?v=1.0.0` → `styles.css?v=1.0.1`
-- `script.js?v=1.0.0` → `script.js?v=1.0.1`
+- `styles.css?v=1.4.0` → `styles.css?v=1.4.1`
+- `js/main.js?v=1.4.0` → `js/main.js?v=1.4.1`
 
 ## Architecture
 
 - **index.html**: Single-page app with navigation tabs for different tools
 - **styles.css**: Dark theme with responsive breakpoints for mobile/tablet/desktop
-- **script.js**: Tool logic with modular functions per calculator
+- **js/**: ES6 modules organized by feature
+
+### JavaScript Module Structure
+
+```
+js/
+├── main.js           # Entry point, imports and initializes all modules
+├── translations.js   # TRANSLATIONS object, t(), setLanguage(), i18n functions
+├── constants.js      # Shared constants (PLATES, PLATE_COLORS, RM_FORMULAS, etc.)
+├── navigation.js     # Menu toggle, showTool(), browser history handling
+├── plate-calculator.js
+├── plate-builder.js
+├── one-rm.js
+├── percentage-chart.js
+├── unit-converter.js
+├── hr-zones.js
+├── rest-timer.js
+└── workout-timer.js
+```
 
 ### Adding New Tools
 
 1. Add a nav button in `.nav-list` inside the sidebar with `data-tool="tool-id"`
 2. Add a `<section id="tool-id" class="tool-section">` inside `.container`
-3. Add tool logic in `script.js` - navigation and menu close are already wired up
-4. Add translations for the tool name and any UI text in `TRANSLATIONS` object
+3. Create a new module `js/tool-name.js` with init and reset functions
+4. Import and initialize the module in `js/main.js`
+5. Add reset function call to `resetAllTools()` in main.js
+6. Add translations in `js/translations.js` for tool name and UI text
 
 ### Current Tools
 
@@ -95,23 +115,23 @@ Additional responsive features:
 
 Supports English and French. Language toggle in header. Default language detected from browser (`navigator.language`).
 
-- Translations in `TRANSLATIONS` object at top of script.js
+- Translations in `TRANSLATIONS` object in `js/translations.js`
 - Use `data-i18n="key"` attribute for text content
 - Use `data-i18n-placeholder="key"` for input placeholders
 - Call `t('key')` in JavaScript for translated strings
 - Dynamic elements (bar selects, error messages) use `t()` function
 
-## Key Functions in script.js
+## Key Functions
 
-- `setLanguage(lang)` - Switch language and update all UI text
-- `resetAllTools()` - Clear all inputs when switching tools
-- `calculatePlates(weight, plates)` - Greedy algorithm for plate calculation
-- `renderBarbellVisual(plates, containerId, unit)` - Draw barbell with colored plates
-- `calculate1RM(weight, reps, formula)` - 1RM estimation with multiple formulas
-- `calculateKarvonen(maxHR, restingHR, intensityPct)` - Karvonen formula for target HR
+- `setLanguage(lang)` - Switch language and update all UI text (translations.js)
+- `resetAllTools()` - Clear all inputs when switching tools (main.js)
+- `calculatePlates(weight, plates)` - Greedy algorithm for plate calculation (plate-calculator.js)
+- `renderBarbellVisual(plates, containerId, unit)` - Draw barbell with colored plates (plate-calculator.js)
+- `calculateKarvonen(maxHR, restingHR, intensityPct)` - Karvonen formula for target HR (hr-zones.js)
 
 ## Constraints
 
 - No npm, no bundlers, no frameworks - must work as static files on GitHub Pages
-- All styles in single CSS file, all logic in single JS file
+- Uses ES6 modules for code organization (requires `type="module"` on script tag)
+- All styles in single CSS file
 - Plate CSS classes use unit prefix to avoid conflicts (e.g., `.plate-lbs-45`, `.plate-kg-20`)
