@@ -1,0 +1,6 @@
+# Robots.txt for Gym Calculator
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://brueonor.github.io/gym-calculator/sitemap.xml
